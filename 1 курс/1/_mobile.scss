@@ -1,0 +1,140 @@
+@media (max-width: 767px) {
+.center {
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.header {
+    padding-top: 32px;
+    border-bottom: none;
+    &__input {
+        display: none;
+    }
+    &__logo {
+        width: 99px;
+    }
+}
+
+.title {
+    margin-top: 29px;
+}
+
+.menu {
+    display: none;
+    &-mobile {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+    }
+}
+
+.cat__title{
+    font-size: 48px;
+    line-height: 59px;
+    text-align: center;
+    margin-top: 82px;
+}
+
+.title {
+    font-size: 48px;
+    line-height: 59px;
+    text-align: center;
+}
+
+.top {
+    &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+&__text{
+    font-size: 16px;
+    line-height: 32px;
+    text-align: center;
+}
+
+&__link {
+    font-size: 14px;
+    line-height: 24px;
+    text-align: center;
+}
+
+}
+
+.for__title {
+    font-size: 24px;
+    line-height: 29px;
+}
+
+.for {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+
+    &__items {
+        grid-column: 1 / -1;
+        height: 375px;
+        font-size: 28px;
+        line-height: 34px;
+
+    }
+
+    &__items_big {
+        height: 244px;
+    }
+}
+
+.heading {
+    font-size: 24px;
+    line-height: 29px;
+    margin-top: 36px;
+}
+
+.product {
+    &__heading {
+        font-size: 24px;
+        line-height: 29px;
+    }
+
+    &__price {
+        font-size: 18px;
+        line-height: 22px;
+    }
+
+    &__content {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+
+
+.footer {
+    padding-bottom: 32px;
+    margin-top: 32px;
+    &__content {
+        justify-content: center;
+        gap: 34px;
+    }
+
+    &__info {
+        gap: 100px;
+    }
+}
+
+}
+    
+
+// КАТАЛОГ
+
+.items__section_top{
+    margin-top: 32px;
+    gap: 16px;
+}
+
+
+// КОРЗИНА НАЗВАНИЯ ТОВАРОВ
+.product__heading {
+    font-size: 18px;
+    line-height: 22px;
+}

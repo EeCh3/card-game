@@ -1,0 +1,57 @@
+<!-- Сделайте div такой, что в любом месте верстки при клике по нему он выдает точный путь по тегам до себя -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .iknowwhereyoulive {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div>
+            <div>
+                <section>
+                    <div class="iknowwhereyoulive" onclick="findMe()"> НАЙДИ МЕНЯ
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+    <script>
+        findMe = () => {
+            let nodes = [];
+            let element = document.querySelector('.iknowwhereyoulive');
+            nodes.push(element);
+            while(element.parentElement) {
+                nodes.unshift(element.parentElement);
+                element = element.parentElement;
+            }
+            console.log(nodes);
+        }
+    </script>
+</body>
+</html>
+
+
+<!-- 
+const theDiv = document.querySelector('.iknowwhereyoulive')
+for (let i = 0; i < document.documentElement.parentNode.length; i++) {
+alert( document.body.childNodes[i] ); // Text, DIV, Text, UL, ..., SCRIPT
+} -->
+
+
+<!-- findMe = () => {
+    while(theDiv = theDiv.parentElement) { 
+    console.log(theDiv);
+    }
+} -->

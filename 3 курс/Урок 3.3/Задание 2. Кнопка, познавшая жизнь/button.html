@@ -1,0 +1,69 @@
+<!-- ## Задание 2. Кнопка, познавшая жизнь
+
+Сделайте кнопку, отображающую количество кликов по ней. 
+Если очередной клик происходит быстрее, чем через секунду от предыдущего клика по кнопке, 
+то кнопка блокируется (используйте атрибут disabled), счетчик кликов обнуляется. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button</title>
+</head>
+<body>
+    <button class="button" data-clicks="0" onclick="buttonClickHandler()">Кол-во кликов:</button>
+    <script>
+        const button = document.getElementsByClassName('button');
+        buttonClickHandler = () => {
+
+            let clicks = +button[0].dataset.clicks;
+
+            clicks += 1;
+
+            button[0].dataset.clicks = clicks;
+
+            button[0].textContent = `Кол-во кликов: ${clicks}`;
+
+            let lastClick = Date.now();
+
+            button[0].addEventListener('click', function() {
+                if (lastClick > Date.now() - 1000) {
+                    button[0].disabled = true;
+                    clicks = 0;
+                    button[0].textContent = `Кол-во кликов: ${clicks}`;
+                }
+            }
+            );
+        }
+    </script>
+</body>
+</html>
+
+
+<!-- let timer;
+document.onkeypress = function(event) {
+  if (!timer && event.key == ' ') {
+    console.log(0);
+    timer = setTimeout(() => timer = clearTimeout(timer), 1000);
+  }
+}
+
+
+let lastSpacePress;
+window.addEventListener("keypress", function(event) {
+  if (event.key === " ") {
+    if (lastSpacePress > Date.now() - 1000) {
+      return;
+    }
+    lastSpacePress = Date.now();
+
+    console.log("SPACE HIT");
+  }
+});
+
+
+button[0].disabled = true;
+setTimeout(function() {button[0].disabled = false; clicks = 0}, 1000) -->
+
+

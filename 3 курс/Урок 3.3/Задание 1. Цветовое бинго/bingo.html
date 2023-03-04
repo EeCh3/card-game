@@ -1,0 +1,70 @@
+<!-- Сделайте div высотой и шириной во viewport браузера (100% высоты и ширины браузера, без полей и отступов). 
+Пусть цвет фона в этом div меняется раз в 100 миллисекунд на случайный из цветового диапазона. Используйте для этого setInterval.
+
+При клике по блоку смена цветов должна остановиться (используйте для этого clearInterval). 
+При этом внутри div должен появиться текст вида #1ad45f, который представляет собой HEX-формат записи цвета фона, отображающегося в данный момент у блока.
+
+Расположите текст по центру (и по вертикали, и по горизонтали). -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bingo</title>
+    <style>
+        body {
+            margin: 0;
+        }
+        .content {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .heading {
+            height: 20px;
+            color: #000;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="content" onclick="stop()"><h1 class="heading hidden"></h1></div>
+    
+    <script>
+        const button = document.getElementsByClassName('btn');
+        const content = document.getElementsByClassName('content');
+        const hex = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'];
+        const heading = document.getElementsByClassName('heading');
+
+        getRandomHexElement = (arr) => {
+            return arr[Math.floor(Math.random()*hex.length)]
+        }
+        
+        changeColor = () => {
+            let r1 = getRandomHexElement(hex);
+            let r2 = getRandomHexElement(hex);
+            let g1 = getRandomHexElement(hex);
+            let g2 = getRandomHexElement(hex);
+            let b1 = getRandomHexElement(hex);
+            let b2 = getRandomHexElement(hex);
+            content[0].style.backgroundColor = '#'+ r1 + r2 + g1 +  g2 + b1 + b2;
+            heading[0].textContent = `#${r1}${r2}${g1}${g2}${b1}${b2}`;
+        }
+
+        let colorTimer = setInterval(changeColor, 1000)
+
+        stop = () => {
+            clearInterval(colorTimer)
+            heading[0].classList.remove('hidden')
+        }     
+</script>
+</body>
+</html>
+
+

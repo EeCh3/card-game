@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button class="login">Логин</button>
+    <button class="startGame">Войти в игру</button>
+    <button class="gameStatus">Узнать статус игры</button>
+
+    <script>
+     window.token =''
+      document.querySelector(".login").onclick = () => {
+        fetch(`https://skypro-rock-scissors-paper.herokuapp.com/login?login=${Math.random()}`) 
+        // ТАМ СДЕЛАТЬ ВМЕСТО MATH RANDOM INPUT.VALUE ДЛЯ СЧИТЫВАНИЯ НИКА
+          .then((response) => response.json())
+          .then((posts) => {
+            window.token = posts.token
+            console.log(window.token);
+          });
+      };
+
+      document.querySelector('.startGame').onclick = ()=>{
+        fetch(`https://skypro-rock-scissors-paper.herokuapp.com/start?token=${window.token}`)
+          .then((response) => response.json())
+          .then((posts) => {
+            window.gameId = posts['player-status'].game.id
+            console.log(window.gameId);
+          });
+      }
+
+      document.querySelector('.gameStatus').onclick = ()=>{
+        fetch(`https://skypro-rock-scissors-paper.herokuapp.com/game-status?token=${window.token}&id=${window.gameId}`)
+          .then((response) => response.json())
+          .then((posts) => {
+            console.log(posts['game-status'].status);
+          });
+      }
+    </script>
+  </body>
+</html>

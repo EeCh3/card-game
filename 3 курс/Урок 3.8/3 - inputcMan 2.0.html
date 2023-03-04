@@ -1,0 +1,47 @@
+<!-- ## Задание 3. Инпуткман 2.0
+
+Это продолжение задания 2. 
+
+При нажатии клавиш направо-налево уничтожается соседний DOM-узел, а текстовое содержимое узла должно попадать в `input` (заменять предыдущее его содержимое, если оно было). 
+
+Когда нажимается «налево» — уничтожается предыдущий элемент, «направо» — следующий. Уничтожаются только дети того же родителя, в котором лежит поле ввода. 
+
+Если уничтожаемого элемента нет (нет ничего перед или после `input`), ничего не происходит. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <section>
+        <div>
+            <div>
+                <div>
+                    <h1>Уничтожь меня</h1>
+                    <h2>И меня</h2>
+                    <input type="text" class="input">
+                    <h2>И меня тоже</h2>
+                    <h2>Про меня не забудь</h2>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const input = document.querySelector('.input');
+
+        input.onkeydown = function(event) {
+            if (event.key === 'ArrowLeft' && input.previousElementSibling !== null) {
+                input.value = input.previousElementSibling.textContent
+                input.previousElementSibling.remove()
+            } else if (event.key === 'ArrowRight' && input.nextElementSibling !== null ) {
+                input.value = input.nextElementSibling.textContent
+                input.nextElementSibling.remove()
+            }
+        }
+    </script>
+</body>
+</html>

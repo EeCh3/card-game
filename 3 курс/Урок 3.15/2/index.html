@@ -1,0 +1,58 @@
+<!-- Сделайте красивый виджет погоды, в котором есть возможность выбрать город, для которого необходимо отобразить погоду. 
+Город выбирается с помощью саджеста (автозаполнение строки поискового запроса) городов.
+Выведите минимально температуру, тип погоды и иконку типа погоды. По желанию добавьте еще интересной инфы. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 2. Виджет погоды с саджестом городов</title>
+    <style>
+        .input {
+            border: 1px solid #AAAAAA;
+            background: white; 
+            overflow: auto; 
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <section class="container">
+        <p><strong>Адрес</strong></p>
+        <input id="address" name="address" type="text" />
+      </section>
+
+    <div class="weatherWidget">
+        <input type="text" class="input">
+        <p class="temperature"></p>
+        <p class="weather"></p>
+        <div class="icon"></div>
+    </div>
+
+    <script>
+        const input = document.querySelector('.input');
+        const temperature = document.querySelector('.temperature');
+        const weather = document.querySelector('.weather');
+        const icon = document.querySelector('.icon');
+
+
+    </script>
+</body>
+</html>
+
+
+
+// button.addEventListener('click', function(event) {
+    //     request({
+    //         url: '\1\api.json',
+    //         onSuccess: () => {
+    //             console.log('SUCCESS');
+    //         }
+    //     });
+    //     const data = JSON.parse
+    //     if (data.status === "ok") {
+    //         console.log('OKAY');
+    //     }
+    // })

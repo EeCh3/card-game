@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="background">
+       <h1 class="heading">О нет, тут дракон, бежим!</h1>
+    </div>
+    
+
+    <style>
+        .background {
+        height: 1128px;
+
+        background-image: url(./dragon.jpg);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        }
+
+        .heading {
+            display: flex;
+            justify-content: center;
+            color: azure;
+        }
+    </style>
+
+<script>
+    function goBack() {
+  history.back();
+}
+
+setTimeout(goBack, 5000);
+    
+</script>
+</body>
+</html>

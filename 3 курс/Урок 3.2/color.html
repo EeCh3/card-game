@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body id="bodyColor">
+    <div class="buttons">    
+        <button id="redButton">Добавить красного</button>
+        <button id="greenButton">Добавить зеленого</button>
+        <button id="blueButton">Добавить синего</button>
+    </div>
+
+
+    <style>
+        body {
+            background-color:#000;
+           
+        }
+        .buttons {
+            margin-top: 200px;
+            gap: 15px;
+            display: flex;
+            justify-content: center
+        }
+    </style>
+    <script>
+        const redButton = document.getElementById('redButton');
+       const greenButton = document.getElementById('greenButton');
+       const blueButton = document.getElementById('blueButton');
+
+
+        let redHex = "#";
+        let redColor = 100;
+
+        let greenHex = "#0";
+        let greenColor = 10;
+
+        let blueHex = "#00";
+        let blueColor = 001;
+        
+
+       redButton.onclick = () => {
+        
+        let newRedColor = redHex + redColor;
+            document.body.style.backgroundColor = newRedColor;
+            console.log(newRedColor);
+            if (redColor < 900) {
+                redColor+=100;
+            } else {
+                redColor+=0;
+            }
+
+       }
+
+       greenButton.onclick = () => {
+        
+        let newGreenColor = greenHex + greenColor;
+            document.body.style.backgroundColor = newGreenColor;
+            console.log(newGreenColor);
+            if (greenColor < 90) {
+                greenColor+=10;
+            } else {
+                greenColor+=0;
+            }
+       }
+
+       blueButton.onclick = () => {
+        let newBlueColor = blueHex + blueColor;
+            document.body.style.backgroundColor = newBlueColor;
+            console.log(newBlueColor);
+            if (blueColor < 9) {
+                blueColor+=1;
+            } else {
+                blueColor+=0;
+            }
+       }
+    </script>
+</body>
+</html>

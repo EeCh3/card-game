@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Камень, ножницы, бумага</title>
+  <link rel="stylesheet" href="bootstrap.min.css">
+  <style>
+
+    body {
+        font-family: "Comic Sans", sans-serif;
+    }
+
+    .app {
+        background-color: #485785;
+        width: 50%;
+        height: 600px;
+        margin-top: 10%;
+        margin-left: 25%; 
+        border-radius: 15px;
+        padding: 20px;
+    }
+
+    .authScreenContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 130px;
+    }
+
+    .title {
+        font-weight: 800;
+        font-size: 50px;
+    }
+
+    .titleContainer {
+        display: flex;
+        justify-content: center;
+    }
+
+    .subheading {
+        display: flex;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 40px;
+    }
+
+    .authContainer {
+        gap: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn {
+        width: 275px;
+        height: 100px;
+    }
+
+    .btn:hover {
+        background: #378dfc;
+        color: #F7F6F6;
+        border-color: #000;
+        transition: all 0.1s;
+    }
+
+    .form-control {
+        font-weight: 800;
+        font-size: 30px;
+        padding-left: 32px;
+        padding-right: 32px;
+    }
+
+    .lobbyContentContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 100px;
+    }
+
+    .playersListItem {
+        font-weight: 800;
+        font-size: 40px;
+    }
+
+    .playersListContainer {
+        height: 300px;
+    }
+
+    .playerList {
+        height: 300px;  
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+
+    .playButtonContainer {
+        height: 100px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .idleAnimation {
+        height: 400px;
+        width: 400px;
+        border-radius: 50%;
+    }
+
+    .idleScreenContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    
+    .gameScreenContainer {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .subheadingContainer {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+    }
+
+    .movesContainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: 40px;
+    }
+
+    .pictureContainer {
+        width: 275px;
+        height: 275px; 
+    }
+
+    .movePicture {
+        width: 100%;
+        height: 100%;
+    }
+
+    .moveRockContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .movePaperContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .moveScissorsContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .victoryImgContainer {
+        width: 350px;
+        height: 400px;
+    }
+
+    .victoryImg {
+        width: 100%;
+        height: 100%;
+    }
+
+    .defeatImgContainer {
+        width: 320px;
+        height: 400px;
+    }
+
+    .defeatImg {
+        width: 100%;
+        height: 100%;
+    }
+
+    .endgameScreenContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .buttonsContainer {
+        display: flex;
+        flex-direction: row;
+        gap: 50px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app"></div>
+  <script>
+    const backURL = 'https://skypro-rock-scissors-paper.herokuapp.com/';
+    const app = document.querySelector('.app');
+
+        window.application = {
+            blocks: {},
+            screens: {},
+            renderScreen: function(screenName) {
+                
+                window.application.timers.forEach(timer => {
+                    clearInterval(timer)
+                }) 
+                window.application.timers = []
+        
+                if (window.application.screens[screenName]) {
+                    window.application.screens[screenName]()
+                } else {
+                    console.log('НЕ СУЩЕСТВУЕТ ТАКОГО ПОЛЯ В window.application.screens');
+                }  
+            },
+            renderBlock: function(blockName, container) {
+                if (window.application.blocks[blockName]) {
+                    window.application.blocks[blockName](container)
+                } else {
+                    console.log('НЕ СУЩЕСТВУЕТ ТАКОГО ПОЛЯ В window.application.blocks');
+                }
+            },
+            timers: []
+        }
+
+        main()
+
+        function main() {
+            window.application.blocks['autorizationBlock'] = renderAuthorizationBlock;
+            window.application.renderBlock('autorizationBlock', document.querySelector('.app'))     
+            window.application.screens['authorization'] = renderAuthorizationScreen; 
+            window.application.renderScreen('authorization');
+        }
+
+        function getGameStatus() {
+            fetch(`https://skypro-rock-scissors-paper.herokuapp.com/game-status?token=${window.application.token}&id=${window.application.gameId}`)
+            .then((response) => response.json())
+            .then((posts) => {
+                window.application.gameStatus = posts['game-status'].status
+                console.log(window.application.gameStatus);
+
+                if (window.application.gameStatus === 'waiting-for-enemy-move') {
+                    window.application.screens['waiting'] = renderIdleScreen; 
+                    window.application.renderScreen('waiting');
+                    fetch(`https://skypro-rock-scissors-paper.herokuapp.com/game-status?token=${window.application.token}&id=${window.application.gameId}`)
+                    .then((response) => response.json())
+                    .then((posts) => {
+                        window.application.enemy = posts['game-status'].enemy.login
+                    })
+
+                } else if (window.application.gameStatus === 'waiting-for-start') {
+                    window.application.screens['waiting'] = renderIdleScreen; 
+                    window.application.renderScreen('waiting');
+
+                } else if (window.application.gameStatus === 'waiting-for-your-move') {
+                    fetch(`https://skypro-rock-scissors-paper.herokuapp.com/game-status?token=${window.application.token}&id=${window.application.gameId}`)
+                    .then((response) => response.json())
+                    .then((posts) => {
+                        window.application.enemy = posts['game-status'].enemy.login
+                    })
+                    renderPlayButtons();
+                    
+                } else if (window.application.gameStatus === 'lose') {
+                    window.application.blocks['replayButton'] = renderReplayButton; 
+                    window.application.renderBlock('replayButton', document.querySelector('.app'));
+
+                    window.application.blocks['lobbyButton'] = renderLobbyButton; 
+                    window.application.renderBlock('lobbyButton', document.querySelector('.app'));
+
+                    window.application.screens['defeat'] = renderDefeatScreen; 
+                    window.application.renderScreen('defeat');
+
+                } else if (window.application.gameStatus === 'win') {
+                    window.application.blocks['replayButton'] = renderReplayButton; 
+                    window.application.renderBlock('replayButton', document.querySelector('.app'));
+
+                    window.application.blocks['lobbyButton'] = renderLobbyButton; 
+                    window.application.renderBlock('lobbyButton', document.querySelector('.app'));
+
+                    window.application.screens['victory'] = renderVictoryScreen; 
+                    window.application.renderScreen('victory');
+                }
+            });
+            }
+        
+        function renderPlayButtons() {
+            window.application.blocks['moveRockContainer'] = renderRockButton; 
+            window.application.renderBlock('moveRockContainer', document.querySelector('.app'));
+
+            window.application.blocks['moveScissorsContainer'] = renderScissorsButton; 
+            window.application.renderBlock('moveScissorsContainer', document.querySelector('.app'));
+
+            window.application.blocks['movePaperContainer'] = renderPaperButton; 
+            window.application.renderBlock('movePaperContainer', document.querySelector('.app'));
+
+            window.application.screens['game'] = renderGameScreen; 
+            window.application.renderScreen('game');
+        }
+
+                        // AUTHORIZATION
+
+        function renderAuthorizationBlock(container) {
+            const nicknameInput = document.createElement('input');
+            nicknameInput.placeholder = 'Введите никнейм';
+            nicknameInput.classList.add('form-control');
+
+            const authContainer = document.createElement('div');
+            authContainer.classList.add('authContainer');
+
+            authContainer.appendChild(nicknameInput)
+            
+            const enterButton = document.createElement('button');
+            enterButton.textContent = 'Войти';
+            enterButton.classList.add('btn', 'btn-primary', 'btn-lg', 'hover')
+
+            enterButton.addEventListener('click', () => {
+                fetch(`https://skypro-rock-scissors-paper.herokuapp.com/login?login=${nicknameInput.value}`) 
+                .then((response) => response.json())
+                .then((posts) => {
+                    window.application.token = posts.token
+                    console.log(window.application.token);
+
+                fetch(`https://skypro-rock-scissors-paper.herokuapp.com/player-status?token=${window.application.token}`)
+                .then((response) => response.json())
+                .then((posts) => {
+                    window.application.playerStatus = posts['player-status'].status
+                    console.log(window.application.playerStatus);
+                    if (window.application.playerStatus === 'lobby') {
+                        window.application.blocks['players'] = renderPlayerList; 
+                        window.application.renderBlock('players', document.querySelector('.app'));
+
+                        window.application.blocks['playButton'] = renderPlayButton; 
+                        window.application.renderBlock('playButton', document.querySelector('.app'));
+
+                        window.application.screens['lobby'] = renderLobbyScreen; 
+                        window.application.renderScreen('lobby');
+                    } else if (window.application.playerStatus === 'game') {
+                        window.application.gameId = posts['player-status'].game.id;
+                        renderPlayButtons();
+                    }
+                });
+                });
+            })
+            authContainer.appendChild(enterButton)
+            container.appendChild(authContainer)
+        }
+
+        function renderAuthorizationScreen() {
+            const authScreenContainer = document.createElement('div');
+            authScreenContainer.classList.add('authScreenContainer');
+
+            const app = document.querySelector('.app');
+            app.textContent = '';
+
+            const title = document.createElement('h1');
+            title.classList.add('title', 'text-muted')
+            title.textContent = 'Камень,  ножницы, бумага';
+            const titleContainer = document.createElement('div');
+            titleContainer.classList.add('titleContainer')
+            titleContainer.appendChild(title);
+
+            const subheading = document.createElement('h2');
+            subheading.classList.add('text-muted', 'subheading')
+            subheading.textContent = 'Никнейм:';
+
+            const content = document.createElement('div');
+            content.classList.add('content');
+            content.appendChild(subheading)
+                
+            window.application.renderBlock('autorizationBlock', content);
+
+            app.appendChild(authScreenContainer)
+            authScreenContainer.appendChild(titleContainer);
+            authScreenContainer.appendChild(content);
+        }
+
+                    // LOBBY
+        function renderPlayButton(container) {
+            const playButton = document.createElement('button');
+            playButton.textContent = 'Играть!';
+            playButton.classList.add('btn', 'btn-primary', 'btn-lg', 'hover');
+            playButton.addEventListener('click', () => {
+                fetch(`https://skypro-rock-scissors-paper.herokuapp.com/start?token=${window.application.token}`)
+                .then((response) => response.json())
+                .then((posts) => {
+                    window.application.gameId = posts['player-status'].game.id
+                    console.log(window.application.gameId);
+
+                    if (window.application.gameId !== '') {
+                        window.application.screens['waiting'] = renderIdleScreen; 
+                        window.application.renderScreen('waiting');
+                    }
+                });
+            })
+            container.appendChild(playButton)
+        }
+
+        function renderPlayerList(container) {
+            const ul = document.createElement('ul');
+            ul.classList.add('playerList')
+            container.appendChild(ul);
+
+            const playerListInterval = setInterval(() => {
+                fetch(`https://skypro-rock-scissors-paper.herokuapp.com/player-list`)
+                .then((response) => response.json())
+                .then((posts) => {
+                    ul.innerHTML = '';
+                    list = posts['list']
+                    list.forEach(player => {            
+                        const li = document.createElement('li');
+                        li.classList.add('playersListItem');
+                        li.textContent = player.login;
+                        ul.appendChild(li)
+                    });
+                });   
+            }, 1000) 
+            window.application.timers.push(playerListInterval)
+        }
+
+        function renderLobbyScreen() {
+            const lobbyScreenContainer = document.createElement('div');
+            lobbyScreenContainer.classList.add('lobbyScreenContainer');
+
+            const app = document.querySelector('.app');
+            app.textContent = '';
+
+            const title = document.createElement('h1');
+            title.textContent = 'Лобби';
+            title.classList.add('title', 'text-muted')
+
+            const lobbyTitleContainer = document.createElement('div');
+            lobbyTitleContainer.classList.add('titleContainer')
+            lobbyTitleContainer.appendChild(title)
+
+            const lobbyContentContainer = document.createElement('div');
+            lobbyContentContainer.classList.add('lobbyContentContainer')
+
+            const playersListContainer = document.createElement('div');
+            playersListContainer.classList.add('playersListContainer');
+
+            const playButtonContainer = document.createElement('div');
+            playButtonContainer.classList.add('playButtonContainer')
+
+            lobbyContentContainer.appendChild(playersListContainer)
+            lobbyContentContainer.appendChild(playButtonContainer)
+
+            window.application.renderBlock('players', playersListContainer);
+            window.application.renderBlock('playButton', playButtonContainer);
+
+            app.appendChild(lobbyScreenContainer)
+            lobbyScreenContainer.appendChild(lobbyTitleContainer);
+            lobbyScreenContainer.appendChild(lobbyContentContainer)
+        }
+
+                // WAITING
+
+        function renderIdleBlock(container) {
+            const getGameStatusInterval = setInterval(getGameStatus, 500) 
+            window.application.timers.push(getGameStatusInterval)
+
+            const idleTitleContainer = document.createElement('div');
+            idleTitleContainer.classList.add('titleContainer')
+
+            const title = document.createElement('h1');
+            title.classList.add('title', 'text-muted');
+            title.textContent = 'Игра';
+            idleTitleContainer.appendChild(title);
+
+            const idleAnimationContainer = document.createElement('div');
+            idleAnimationContainer.classList.add('idleAnimationContainer')
+
+            const idleAnimation = document.createElement('img');
+            idleAnimation.classList.add('idleAnimation')
+            idleAnimation.src="dribbble_13.gif"
+            idleAnimationContainer.appendChild(idleAnimation)
+            
+            const idleSubheadingContainer = document.createElement('div');
+            idleSubheadingContainer.classList.add('idleSubheadingContainer');
+
+            const subSubheading = document.createElement('h3');
+            subSubheading.classList.add('text-muted', 'subheading')
+            subSubheading.textContent = 'Ожидаем соперника ...'
+            idleSubheadingContainer.appendChild(subSubheading)
+
+            container.appendChild(idleTitleContainer);
+            container.appendChild(idleAnimationContainer);
+            container.appendChild(idleSubheadingContainer);
+        }
+
+
+        function renderIdleScreen() {
+            app.textContent = '';
+            const idleScreenContainer = document.createElement('div');
+            idleScreenContainer.classList.add('idleScreenContainer');
+
+            app.appendChild(idleScreenContainer)
+            
+            window.application.blocks['idleBlock'] = renderIdleBlock;
+            window.application.renderBlock('idleBlock', idleScreenContainer)
+        }
+        
+                //GAME
+        function renderRockButton(container) {
+            const rockButton = document.createElement('button');
+            rockButton.classList.add('btn');
+            rockButton.textContent = 'Камень';
+
+            const moveRockContainer = document.createElement('div');
+            moveRockContainer.classList.add('moveRockContainer');
+
+            rockPictureContainer = document.createElement('div');
+            rockPictureContainer.classList.add('pictureContainer');
+
+            const rockPicture = document.createElement('img');
+            rockPicture.classList.add('movePicture');
+            rockPicture.src = "./rock.png";
+
+            rockPictureContainer.appendChild(rockPicture)
+
+            rockButtonContainer = document.createElement('div');
+            rockButtonContainer.classList.add('rockButtonContainer');
+
+            rockButtonContainer.appendChild(rockButton)
+            moveRockContainer.appendChild(rockPictureContainer)
+            moveRockContainer.appendChild(rockButtonContainer)
+            container.appendChild(moveRockContainer)
+
+
+            rockButton.addEventListener('click', () => {
+                fetch(`https://skypro-rock-scissors-paper.herokuapp.com/play?token=${window.application.token}&id=${window.application.gameId}&move=rock`)
+                .then((response) => response.json())
+                .then((posts) => {
+                    window.application.gameStatus = posts['game-status'].status
+                })
+            })
+        }
+
+        function renderScissorsButton(container) {
+            const scissorsButton = document.createElement('button');
+            scissorsButton.classList.add('btn')
+            scissorsButton.textContent = 'Ножницы';
+            container.appendChild(scissorsButton)
+
+            const moveScissorsContainer = document.createElement('div');
+            moveScissorsContainer.classList.add('moveScissorsContainer');
+
+            scissorsPictureContainer = document.createElement('div');
+            scissorsPictureContainer.classList.add('pictureContainer');
+
+            const scissorsPicture = document.createElement('img');
+            scissorsPicture.classList.add('movePicture');
+            scissorsPicture.src = "./scissors.png";
+
+            scissorsPictureContainer.appendChild(scissorsPicture)
+
+            scissorsButtonContainer = document.createElement('div');
+            scissorsButtonContainer.classList.add('scissorsButtonContainer');
+        
+            scissorsButtonContainer.appendChild(scissorsButton)
+            moveScissorsContainer.appendChild(scissorsPictureContainer)
+            moveScissorsContainer.appendChild(scissorsButtonContainer)
+            container.appendChild(moveScissorsContainer)
+
+            scissorsButton.addEventListener('click', () => {
+                fetch(`https://skypro-rock-scissors-paper.herokuapp.com/play?token=${window.application.token}&id=${window.application.gameId}&move=scissors`)
+                .then((response) => response.json())
+                .then((posts) => {
+                    window.application.gameStatus = posts['game-status'].status
+                })
+            })
+        }
+
+        function renderPaperButton(container) {
+            const paperButton = document.createElement('button');
+            paperButton.classList.add('btn')
+            paperButton.textContent = 'Бумага';
+            container.appendChild(paperButton)
+
+            const movePaperContainer = document.createElement('div');
+            movePaperContainer.classList.add('movePaperContainer');
+
+            paperPictureContainer = document.createElement('div');
+            paperPictureContainer.classList.add('pictureContainer');
+
+            const paperPicture = document.createElement('img');
+            paperPicture.classList.add('movePicture');
+            paperPicture.src = "./paper.png";
+
+            paperPictureContainer.appendChild(paperPicture)
+
+            paperButtonContainer = document.createElement('div');
+            paperButtonContainer.classList.add('paperButtonContainer');
+        
+            paperButtonContainer.appendChild(paperButton)
+            movePaperContainer.appendChild(paperPictureContainer)
+            movePaperContainer.appendChild(paperButtonContainer)
+            container.appendChild(movePaperContainer)
+
+            paperButton.addEventListener('click', () => {
+                fetch(`https://skypro-rock-scissors-paper.herokuapp.com/play?token=${window.application.token}&id=${window.application.gameId}&move=paper`)
+                .then((response) => response.json())
+                .then((posts) => {
+                    window.application.gameStatus = posts['game-status'].status
+                })
+            })
+        }
+
+        function renderGameScreen() {
+            const app = document.querySelector('.app');
+            app.textContent = '';
+
+            const title = document.createElement('h1');
+            title.classList.add('title', 'text-muted');
+            title.textContent = 'Игра';
+
+            const subheading = document.createElement('h2');
+            subheading.textContent = `Вы против ${window.application.enemy}`;
+            subheading.classList.add('subheading', 'text-muted');
+
+            const gameSubheadingContainer = document.createElement('div');
+            gameSubheadingContainer.classList.add('subheadingContainer')
+            gameSubheadingContainer.appendChild(subheading)
+
+            const gameScreenContainer =  document.createElement('div');
+            gameScreenContainer.classList.add('gameScreenContainer');
+
+            const gameTitleContainer = document.createElement('div');
+            gameTitleContainer.classList.add('titleContainer');
+            gameTitleContainer.appendChild(title);
+
+            const movesContainer = document.createElement('div');
+            movesContainer.classList.add('movesContainer');
+
+            app.appendChild(gameScreenContainer);    
+            gameScreenContainer.appendChild(gameTitleContainer);
+            gameScreenContainer.appendChild(gameSubheadingContainer);
+            gameScreenContainer.appendChild(movesContainer);
+
+            window.application.renderBlock('moveRockContainer', movesContainer);
+            window.application.renderBlock('moveScissorsContainer', movesContainer);
+            window.application.renderBlock('movePaperContainer', movesContainer);
+
+            const getGameStatusInterval = setInterval(getGameStatus, 500) 
+            window.application.timers.push(getGameStatusInterval)
+        }
+
+                                //WIN
+            function renderReplayButton(container) {
+                const replayButton = document.createElement('button');
+                replayButton.textContent = 'Играть ещё';
+                replayButton.classList.add('btn', 'btn-outline-success');
+                replayButton.addEventListener('click', () => {
+                    fetch(`https://skypro-rock-scissors-paper.herokuapp.com/start?token=${window.application.token}`)
+                    .then((response) => response.json())
+                    .then((posts) => {
+                        window.application.gameId = posts['player-status'].game.id
+                        console.log(window.application.gameId);
+
+                        if (window.application.gameId !== '') {
+                            window.application.screens['waiting'] = renderIdleScreen; 
+                            window.application.renderScreen('waiting');
+                        }
+                    });
+                })
+                container.appendChild(replayButton)
+            }
+
+        function renderLobbyButton(container) {
+            const lobbyButton = document.createElement('button');
+            lobbyButton.classList.add('btn', 'btn-outline-danger');
+            lobbyButton.textContent = 'Лобби';
+            lobbyButton.addEventListener('click', () => {
+                window.application.blocks['playButton'] = renderPlayButton; 
+                window.application.renderBlock('playButton', document.querySelector('.app'));
+                window.application.screens['lobby'] = renderLobbyScreen; 
+                window.application.renderScreen('lobby');
+            })
+            container.appendChild(lobbyButton)
+        }
+
+        function renderVictoryScreen() {
+            const app = document.querySelector('.app');
+            app.textContent = '';
+
+            const endgameScreenContainer = document.createElement('div');
+            endgameScreenContainer.classList.add('endgameScreenContainer');
+
+            const title = document.createElement('h1');
+            title.classList.add('subheading', 'text-muted');
+            title.textContent = `Ваш соперник ${window.application.enemy} повержен`
+            
+            const titleContainer = document.createElement('div');
+            titleContainer.classList.add('titleContainer');
+            titleContainer.appendChild(title);
+
+            const victoryImg = document.createElement('img');
+            victoryImg.src="./victory.png"
+            victoryImg.classList.add('victoryImg');
+
+            const victoryImgContainer = document.createElement('div');
+            victoryImgContainer.classList.add('victoryImgContainer');
+            victoryImgContainer.appendChild(victoryImg);
+
+            const buttonsContainer = document.createElement('div');
+            buttonsContainer.classList.add('buttonsContainer');
+
+            app.appendChild(endgameScreenContainer)
+            endgameScreenContainer.appendChild(titleContainer);
+            endgameScreenContainer.appendChild(victoryImgContainer);
+            endgameScreenContainer.appendChild(buttonsContainer)
+
+            window.application.blocks['replayButton'] = renderReplayButton; 
+            window.application.renderBlock('replayButton', buttonsContainer);
+
+            window.application.blocks['lobbyButton'] = renderLobbyButton; 
+            window.application.renderBlock('lobbyButton', buttonsContainer);
+        }
+
+                    //DEFEAT
+        function renderDefeatScreen() {
+            const app = document.querySelector('.app');
+            app.textContent = '';
+
+            const endgameScreenContainer = document.createElement('div');
+            endgameScreenContainer.classList.add('endgameScreenContainer');
+
+            const title = document.createElement('h1');
+            title.classList.add('subheading', 'text-muted')
+            title.textContent = `В этот раз ${window.application.enemy} оказался сильнее`
+
+            const titleContainer = document.createElement('div');
+            titleContainer.classList.add('titleContainer');
+            titleContainer.appendChild(title);
+
+            const defeatImg = document.createElement('img');
+            defeatImg.src="./defeat.png"
+            defeatImg.classList.add('defeatImg');
+
+            const defeatImgContainer = document.createElement('div');
+            defeatImgContainer.classList.add('defeatImgContainer');
+            defeatImgContainer.appendChild(defeatImg);
+
+            const buttonsContainer = document.createElement('div');
+            buttonsContainer.classList.add('buttonsContainer');
+
+            app.appendChild(endgameScreenContainer)
+            endgameScreenContainer.appendChild(titleContainer);
+            endgameScreenContainer.appendChild(defeatImgContainer);
+            endgameScreenContainer.appendChild(buttonsContainer)
+
+            window.application.blocks['replayButton'] = renderReplayButton; 
+            window.application.renderBlock('replayButton', buttonsContainer);
+
+            window.application.blocks['lobbyButton'] = renderLobbyButton; 
+            window.application.renderBlock('lobbyButton', buttonsContainer);
+        }
+  </script>
+</body>
+</html>
