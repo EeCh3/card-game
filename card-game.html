@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card-game</title>
+    <style>
+
+        * {
+        margin: 0;
+        padding: 0;
+        }
+
+        a {
+        text-decoration: none;
+        }
+
+        .startScreenContainer {
+            background-color: #004980;
+            height: 100vh; 
+            display: flex; 
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .startScreenBox {
+            background-color: #C2F5FF;
+            width: 480px;
+            height: 459px;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .startScreenTitleBox {
+            width: 208px;
+            height: 96px;
+            margin-top: 52px;
+            margin-bottom: 48px;
+        }
+
+        .startScreenTitle {
+            font-weight: 400;
+            font-size: 40px;
+            line-height: 48px;
+            color: #004980;
+            text-align: center;
+        }
+
+        .difficultyBox {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin-bottom: 67px;
+        }
+
+        .difficultyItem {
+            background-color: #FFFFFF;
+            height: 98px;
+            width: 98px;
+            border-radius: 12px;
+
+            font-weight: 400;
+            font-size: 64px;
+            line-height: 72px;
+            color: #0080C1;
+
+            display: flex;
+            align-items: center;
+            text-align: center;
+            flex-direction: row;
+            justify-content: center;
+        }       
+
+        .startButton {
+            width: 246px;
+            height: 50px;
+            background: #7AC100;
+            border-radius: 12px;
+
+            font-weight: 400;
+            font-size: 24px;
+            line-height: 32px;
+            color: #FFFFFF;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="startScreenContainer">
+        <div class="startScreenBox">
+            <div class="startScreenTitleBox">
+                <h1 class="startScreenTitle">Выберите сложность</h1>
+            </div>
+            <div class="difficultyBox">
+                <div class="difficultyItem">
+                    <p class="difficultyLevel">1</p>
+                </div>
+                <div class="difficultyItem">
+                    <p class="difficultyLevel">2</p>
+                </div>
+                <div class="difficultyItem">
+                    <p class="difficultyLevel">3</p>
+                </div>
+            </div>
+            <button class="startButton">Старт</button>
+        </div>
+    </div>
+</body>
+</html>
