@@ -1,0 +1,268 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
+.navigation {
+  transition: color 0.1s;
+}
+.navigation:hover {
+  transition: color 0.1s;
+  border: 3px solid #44D2FF;
+  border-radius: 16px;
+}
+
+.navigation__button {
+  transition: all 0.1s;
+}
+.navigation__button:hover {
+  background: #EB443F;
+  color: #F7F6F6;
+  border-color: #000;
+  transition: all 0.1s;
+}
+
+.center {
+  padding-left: calc(50% - 600px);
+  padding-right: calc(50% - 600px);
+}
+
+.top {
+  height: 1024px;
+  background-image: url(./Rectangle\ 1.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.top__content {
+  padding-top: 217px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.title {
+  max-width: 788px;
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 78px;
+  color: #FFFFFF;
+}
+
+.subheading {
+  max-width: 481px;
+  margin-top: 32px;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 32px;
+  color: #FFFFFF;
+}
+
+.top__content_button {
+  cursor: url(./cursor.png), pointer;
+  margin-top: 44px;
+  background: #9C0332;
+  border-radius: 30px;
+  width: 234.06px;
+  height: 48.6px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  color: #FFFFFF;
+}
+
+.bottom {
+  background-image: url(./Rectangle\ 5.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.bottom__content {
+  display: grid;
+  gap: 32px;
+  grid-template-columns: repeat(12, 1fr);
+  padding-top: 128px;
+  padding-bottom: 128px;
+  grid-column: span 4;
+}
+
+.game {
+  height: 300px;
+  /* background: linear-gradient(180deg, rgba(39, 1, 15, 0) 0%, #001944 100%); */
+  border-radius: 16px;
+  grid-column: span 4;
+  cursor: url(./cursor.png), pointer;
+}
+
+.game1 {
+  background: url(./g1.jpg);
+}
+
+.game2 {
+  background: url(./g2.jpg);
+}
+
+.game3 {
+  background: url(./g3.jpg);
+}
+
+.game__title {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+  color: #FFFFFF;
+  padding-top: 236px;
+  padding-left: 32px;
+  padding-bottom: 32px;
+}
+
+.seasons {
+  background-image: url(./Rectangle\ 5.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 131px;
+  padding-top: 233px;
+  padding-bottom: 233px;
+}
+.seasons__content {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.seasons__title {
+  max-width: 377px;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 59px;
+  color: #FFFFFF;
+}
+.seasons__subheading {
+  max-width: 584px;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 32px;
+  color: #FFFFFF;
+}
+.seasons__button_style {
+  cursor: url(./cursor.png), pointer;
+  background: #9C0332;
+  border-radius: 30px;
+  width: 234.06px;
+  height: 48.6px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  color: #FFFFFF;
+}
+
+.riddles {
+  background-image: url(./riddles.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  padding-top: 233px;
+  padding-bottom: 233px;
+}
+.riddles__content {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+}
+.riddles__title {
+  max-width: 377px;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 59px;
+  color: #FFFFFF;
+  max-width: 392px;
+  text-align: center;
+}
+.riddles__subheading {
+  max-width: 584px;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 32px;
+  color: #FFFFFF;
+  max-width: 1200px;
+  text-align: center;
+}
+
+.footer {
+  height: 80px;
+  background-image: url(./footer.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.footer__description {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  color: #FFFFFF;
+}
+
+@media (max-width: 767px) {
+  .center {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .title {
+    font-size: 32px;
+    line-height: 39px;
+    text-align: center;
+  }
+  .subheading {
+    font-size: 14px;
+    line-height: 22px;
+    text-align: center;
+  }
+  .start__button {
+    display: flex;
+    justify-content: center;
+  }
+  .bottom__content {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .seasons {
+    padding-top: 51px;
+    padding-bottom: 85px;
+    gap: 64px;
+  }
+  .seasons__content {
+    align-items: center;
+  }
+  .seasons__title {
+    font-size: 32px;
+    line-height: 39px;
+  }
+  .seasons__subheading {
+    font-size: 14px;
+    line-height: 22px;
+    text-align: center;
+  }
+  .words {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .riddles {
+    padding-top: 51px;
+    padding-bottom: 500px;
+  }
+}/*# sourceMappingURL=style.css.map */

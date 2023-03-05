@@ -1,0 +1,52 @@
+<!-- Сделайте несложный интерфейс, который позволяет ввести слово в текстовое поле и проверить его наличие в русском языке.
+
+**Усложнение:** API поддерживает запросы с помощью POST, разберитесь и переведите приложение на этот тип запросов. 
+
+*Подсказка.* Кодировка данных важна. При неправильной кодировке API ответит HTTP-кодом 415. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word existence</title>
+</head>
+<body>
+    <input type="text" class="input" placeholder="Введите слово...">
+    <button class="button">Проверить</button>
+
+    <script src="request.js"></script>
+    <script>
+        const input = document.querySelector('.input');
+        const button = document.querySelector('.button');
+                
+        const API_KEY = 'dict.1.1.20230202T152803Z.15e7d7644acde41f.33f9615ff260704bfb160aead3a4d758f0902f7f';
+
+        button.addEventListener('click', () => {
+            const bodyParams = new URLSearchParams({
+            key: API_KEY,
+            lang: 'ru-ru',
+            text: input.value
+        });
+
+        request({
+            method: 'POST',
+            url: 'https://dictionary.yandex.net/api/v1/dicservice.json/lookup',
+            headers: {
+                'Content-type': 'application/x-www-form-urlencoded',
+            },
+            body: bodyParams.toString(),
+            
+            onSuccess: (data) => {
+                if (data.def.length === 0) {
+                    alert('Такого слова не существует')
+                } else {
+                    alert('Такое слово существует')
+                }
+
+            }
+        });
+    });
+    </script>
+</body>
+</html>

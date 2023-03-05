@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPA на минималках</title>
+</head>
+<body>
+    <h1 class="heading"></h1>
+    <h2 class="subheading"></h2>
+    <p class="content">
+    </p>
+    <script>
+        const heading = document.querySelector('.heading');
+        const subheading = document.querySelector('.subheading');
+        const content = document.querySelector('.content');
+
+
+        document.addEventListener("DOMContentLoaded", function(event) {
+            function createContent(data) {
+            heading.textContent = data.title;
+            subheading.textContent = data.subtitle;
+            content.innerHTML = data.body;
+        }
+
+        const request = new XMLHttpRequest();
+        request.open('GET', 'index2.json');
+        request.send();
+        request.onload = function() {
+            if (request.status !== 200) {
+                showError('Не удалось получить данные!')
+            }
+            const data = JSON.parse(request.response);
+            createContent(data);
+        };
+        })
+        
+        content.addEventListener ('click', function(event) {
+            event.preventDefault();
+            // console.log(event.target);
+
+            if (event.target.textContent === 'ABOUT') {
+                // console.log('ABOUT');
+        
+                function createContent(data) {
+                heading.textContent = data.title;
+                subheading.textContent = data.subtitle;
+                content.innerHTML = data.body;
+                }
+
+                const request = new XMLHttpRequest();
+                request.open('GET', 'about.json');
+                request.send();
+                request.onload = function() {
+                if (request.status !== 200) {
+                    showError('Не удалось получить данные!')
+                }
+                const data = JSON.parse(request.response);
+                createContent(data);
+            };
+            } else if (event.target.textContent === 'CONTACTS') {
+                function createContent(data) {
+                heading.textContent = data.title;
+                subheading.textContent = data.subtitle;
+                content.innerHTML = data.body;
+                }
+
+                const request = new XMLHttpRequest();
+                request.open('GET', 'contacts.json');
+                request.send();
+                request.onload = function() {
+                if (request.status !== 200) {
+                    showError('Не удалось получить данные!')
+                }
+                const data = JSON.parse(request.response);
+                createContent(data);
+            };
+            } else if (event.target.textContent === 'ГЛАВНАЯ') {
+                function createContent(data) {
+                heading.textContent = data.title;
+                subheading.textContent = data.subtitle;
+                content.innerHTML = data.body;
+                }
+
+                const request = new XMLHttpRequest();
+                request.open('GET', 'index2.json');
+                request.send();
+                request.onload = function() {
+                if (request.status !== 200) {
+                    showError('Не удалось получить данные!')
+                }
+                const data = JSON.parse(request.response);
+                createContent(data);
+            };
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!-- ## Задание 1. Сам себе VS Code
+
+Попробуйте найти в npm такой пакет, который позволит превратить браузер в полноценный редактор кода, буквально-таки в VS Code, с подсветкой синтаксиса, как в js. 
+В этом задании надо только найти пакет, дать на него ссылку и словесно обосновать свой выбор и рассказать как вы искали этот пакет и почему выбрали его. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="codemirror/lib/codemirror.js"></script>
+    <link rel="stylesheet" href="codemirror/lib/codemirror.css">
+    <script src="codemirror/mode/xml/xml.js"></script>
+    <script src="codemirror/mode/javascript/javascript.js"></script>
+</head>
+<body>
+
+    <textarea class='demotext'>
+
+    function foo() {
+        for(i = 0, i < 10, i++)
+        console.log(i);
+    }
+
+    </textarea>
+
+<script type="text/javascript">
+
+    const editor = CodeMirror.fromTextArea(document.querySelector('.demotext'), {
+          lineNumbers: true,
+          mode: "javascript"
+    });
+
+</script>
+</body>
+</html>

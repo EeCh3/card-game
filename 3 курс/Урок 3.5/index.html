@@ -1,0 +1,78 @@
+<!-- Найдите какую-нибудь большую картинку в интернете. Например, можете воспользоваться сайтом unsplash.com. Скопируйте URL адрес картинки. 
+
+Теперь реализуйте следующую логику:
+
+- После загрузки страницы (DOMContentLoaded) покажите так называемый “спиннер” или полосу загрузки, информирующую пользователя о том, что изображение загружается. 
+В этой точке мы еще не начали загружать изображение – это нормально, главное показать поскорее пользователю, что что-то происходит.
+- Создаем объект-узел изображения и добавляем URL адрес картинки в src так, чтобы картинка начала загружаться.
+- Как только картинка скачана (событие load на объекте-узле картинки) убираем спиннер и показываем картинку в интерфейсе. 
+Добейтесь стилями того, чтобы картинка не вылезала за пределы viewportа браузера. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .newYear {
+            width: 100%;
+        }
+
+        body {
+      margin: 0;
+    }
+
+    .preloader {
+      position: fixed;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
+      background: #fff;
+      z-index: 1001;
+    }
+
+    .preloader__image {
+      position: relative;
+      top: 50%;
+      left: 50%;
+      width: 64px;
+      height: 64px;
+      margin-top: -32px;
+      margin-left: -32px;
+      background: url('./Preloader_9/Preloader_9.gif') no-repeat 50% 50%;
+    }
+
+    .loaded_hiding .preloader {
+      transition: 0.3s opacity;
+      opacity: 0;
+    }
+
+    .loaded .preloader {
+      display: none;
+    }
+    </style>
+</head>
+<body>
+  <div class="preloader">
+    <div class="preloader__image"></div>
+  </div>
+   <script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+      const picture = document.createElement('img');
+      picture.src = 'https://images.unsplash.com/photo-1529973625058-a665431328fb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80'
+      picture.classList.add('newYear')
+
+      picture.onload = function () {
+      document.body.classList.add('loaded_hiding');
+        document.body.classList.add('loaded');
+        document.body.classList.remove('loaded_hiding');
+        document.body.appendChild(picture) 
+    }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Вход</title>
+    <style>
+        body {
+            height: 90vh;
+        }
+
+        .wrapper {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div id="login" class="login">
+            <input id="username" type="text" placeholder="Имя пользователя" name="user"><br>
+            <button id="btn">Войти</button>
+        </div>
+
+        <div id="lk" class="hidden">
+            <div>
+                Привет, <span id="user"></span>!<br />
+                <button id="btnExit">Выйти</button>
+            </div>
+            <div>
+                <h3><span id="name"></span>, узнай свои координаты</h3><br />
+                Широта: <span id="latitude"></span><br />
+                Долгота: <span id="longitude"></span><br />
+                <button id="btnCoords">Узнать координаты</button>
+            </div>
+        </div>
+    </div>
+    <script>
+      const login = document.getElementById('login');
+      const username = document.getElementById('username');
+      const btn = document.getElementById('btn');
+      
+      const lk = document.getElementById('lk');
+      const user = document.getElementById('user');
+      const btnExit = document.getElementById('btnExit');
+      const name = document.getElementById('name');
+      const latitudeOutput = document.getElementById('latitude');
+      const longitudeOutput = document.getElementById('longitude');
+      const btnCoords = document.getElementById('btnCoords');
+
+      if (!localStorage.getItem('username')) {
+        lk.classList.add('hidden');
+        login.classList.remove('hidden');
+      } else {
+        lk.classList.remove('hidden');
+        login.classList.add('hidden');
+
+        user.textContent = localStorage.getItem('username')
+        name.textContent = localStorage.getItem('username')
+      }
+
+      btn.onclick = () => {
+        localStorage.setItem('username', username.value);
+
+        lk.classList.remove('hidden');
+        login.classList.add('hidden');
+
+        user.textContent = username.value;
+        name.textContent = username.value;
+      }
+
+      btnExit.onclick = () => {
+        lk.classList.add('hidden');
+        login.classList.remove('hidden');
+        localStorage.removeItem('username');
+
+        latitudeOutput.textContent = '';
+        longitudeOutput.textContent = '';
+      }
+
+      btnCoords.onclick = () => {
+        navigator.geolocation.getCurrentPosition(
+            function(data) {
+                const {latitude, longitude} = data.coords;
+
+                latitudeOutput.textContent = latitude;
+                longitudeOutput.textContent = longitude;
+            }
+        )
+      }
+
+
+    </script>
+</body>
+</html>

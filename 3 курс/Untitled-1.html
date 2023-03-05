@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Валидация поля</title>
+    <style>
+        span {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .error {
+            border: 2px solid #f00;
+        }
+        .w-300 {
+            width: 300px;
+        }
+        .display—inline {
+            display: inline;
+        }
+        .hidden {
+            display: none;
+        }
+        .error-text {
+            color: #f00;
+        }
+    </style>
+</head>
+<body>
+    <h1>Кириллица и только</h1>
+    <div>
+        <span>В это поле, можно вводить только кириллицу</span>
+        <input id="inp" class="w-300" /><button id="btn">Проверить</button>
+        <span id="textError" class="hidden">Разрешены только символы кириллицы и пробел</span>
+        <span>Вы ввели значение: <span id="value" class="display—inline"></span></span>
+    </div>
+    <script>
+        const body = document.body;
+        const inp = document.getElementById('inp');
+        const btn = document.getElementById('btn');
+        const textError = document.getElementById('textError');
+        const value = document.getElementById('value');
+
+        const alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ';
+
+        for (let i = 0; i < alphabet.length; i++) {
+            console.log(alphabet[i], alphabet.charCodeAt(i));
+        }
+
+        for (let i = 0; i < alphabet.length; i++) {
+            console.log(alphabet[i].toLowerCase(), alphabet.toLowerCase().charCodeAt(i));
+        }
+
+        inp.placeholder = 'Сюда вводим только кириллицу';
+
+        btn.onclick = () => {
+            const valueInput = inp.value;
+
+            for (let i = 0; i < valueInput.length; i++) {
+                let charCode = valueInput.charCodeAt(i);
+                if (charCode >= 1040 && charCode <= 1103 || charCode === 1025 || charCode === 1105) {
+                    inp.classList.remove('error');
+                    textError.classList.remove('error-text');
+                    textError.classList.add('hidden'); 
+                    body.style.backgroundColor = '#fff';
+                } else {
+                    inp.classList.add('error');
+                    textError.classList.add('error-text');
+                    textError.classList.remove('hidden'); 
+                    body.style.backgroundColor = '#0fa';
+                }
+            }
+            value.textContent = inp.value;
+            inp.value = '';
+        }
+    </script>
+</body>
+</html>

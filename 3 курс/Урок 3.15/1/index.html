@@ -1,0 +1,60 @@
+<!-- Сделайте форму с логином и паролем. При отправке формы должен происходить запрос в api.json. (Делайте GET-запрос, так как POST-запрос в статичный json-файл закончится ошибкой.)
+
+После запроса в файл api.json: если получен статус `ok` — то пользователь прошел авторизацию; если статус `error`, то пароль неверный; 
+если файла нет, то считаем, что проблемы на сервере. 
+
+Запрограммируйте соответствующее поведение формы — дайте пользователю понять, как прошла авторизация. 
+Проверьте поведение формы, редактируя файл api.json, а также удаляя его. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 1. Вход на сайт</title>
+
+    <style>
+        .error {
+            border-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <input type="text" class="login">
+        <input type="password" class="password">
+        <button class="button">Log in</button>
+    </div>
+
+    <script src="../request.js"></script>
+    <script>
+        const login = document.querySelector('.login');
+        const password = document.querySelector('.password');
+        const button = document.querySelector('.button');
+        
+        button.addEventListener('click', function(event) {
+            const request = new XMLHttpRequest();
+            request.open('GET', 'api.json');
+            request.send();
+            request.onload = function() {
+                if (request.status === 404) {
+                    showError('Ошибка на сервере')
+                } else if (request.status !== 200) {
+                    showError('Не удалось получить данные!')
+                } else if (login.value === '' || password.value === '') {
+                    alert('Укажите логин / пароль')
+                }
+                
+                const data = JSON.parse(request.response);
+                if (data.status === 'ok') {
+                    alert(`Авторизация прошла успешно`);
+                } else if (data.status !== 'ok') {
+                    password.classList.add('error')
+                    alert('Введен неверный пароль')
+                } 
+            };  
+        })
+    </script>
+</body>
+</html>

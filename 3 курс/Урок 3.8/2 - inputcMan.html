@@ -1,0 +1,38 @@
+<!-- ## Задание 2. Инпуткман
+
+Сделайте поле ввода, при наличии фокуса в котором и при нажатии клавиш направо-налево уничтожается соседний DOM-узел. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <section>
+        <div>
+            <div>
+                <div>
+                    <h1>Уничтожь меня</h1>
+                    <input type="text" class="input">
+                    <h2>И меня</h2>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const input = document.querySelector('.input');
+
+        input.onkeydown = function(event) {
+            if (event.key === 'ArrowLeft' && input.previousElementSibling !== null ) {
+                input.previousElementSibling.remove()
+            } else if (event.key === 'ArrowRight' && input.nextElementSibling !== null ) {
+                input.nextElementSibling.remove()
+            }
+        }
+    </script>
+</body>
+</html>
