@@ -92,24 +92,61 @@
     </style>
 </head>
 <body>
-    <div class="startScreenContainer">
-        <div class="startScreenBox">
-            <div class="startScreenTitleBox">
-                <h1 class="startScreenTitle">ВЫБЕРИТЕ СЛОЖНОСТЬ</h1>
+    <div class="app">
+        <div class="startScreenContainer">
+            <div class="startScreenBox">
+                <div class="startScreenTitleBox">
+                    <h1 class="startScreenTitle">Выберите сложность</h1>
+                </div>
+                <div class="difficultyBox">
+                    <button class="difficultyItem difficulty1">1</button>
+                    <button class="difficultyItem difficulty2">2</button>
+                    <button class="difficultyItem difficulty3">3</button>
+                </div>
+                <button class="startButton">Старт</button>
             </div>
-            <div class="difficultyBox">
-                <div class="difficultyItem">
-                    <p class="difficultyLevel">1</p>
-                </div>
-                <div class="difficultyItem">
-                    <p class="difficultyLevel">2</p>
-                </div>
-                <div class="difficultyItem">
-                    <p class="difficultyLevel">3</p>
-                </div>
-            </div>
-            <button class="startButton">СТАРТ</button>
         </div>
     </div>
+
+    <script>
+        window.application = {
+            screens: {},
+            renderScreen: function(screenName) {
+                if (window.application.screens[screenName]) {
+                    window.application.screens[screenName]()
+                } else {
+                    console.log('НЕ СУЩЕСТВУЕТ ТАКОГО ПОЛЯ В window.application.screens');
+                }  
+            },
+        }
+
+        function renderGameScreen() {
+            const app = document.querySelector('.app');
+            app.textContent = '';
+        }
+
+        const difficulty1 = document.querySelector('.difficulty1');
+        const difficulty2 = document.querySelector('.difficulty2');
+        const difficulty3 = document.querySelector('.difficulty3');
+
+        difficulty1.addEventListener('click', function(e) {
+            window.application.difficulty = 1;
+            window.application.screens['gameScreen'] = renderGameScreen; 
+            window.application.renderScreen('gameScreen');
+        })
+
+        difficulty2.addEventListener('click', function(e) {
+            window.application.difficulty = 2;
+            window.application.screens['gameScreen'] = renderGameScreen; 
+            window.application.renderScreen('gameScreen');
+        })
+
+        difficulty3.addEventListener('click', function(e) {
+            window.application.difficulty = 3;
+            window.application.screens['gameScreen'] = renderGameScreen; 
+            window.application.renderScreen('gameScreen');
+        })
+
+    </script>
 </body>
 </html>
