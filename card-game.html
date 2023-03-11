@@ -5,91 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Card-game</title>
-    <style>
-
-        * {
-        margin: 0;
-        padding: 0;
-        }
-
-        a {
-        text-decoration: none;
-        }
-
-        .startScreenContainer {
-            background-color: #004980;
-            height: 100vh; 
-            display: flex; 
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .startScreenBox {
-            background-color: #C2F5FF;
-            width: 480px;
-            height: 459px;
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-
-        .startScreenTitleBox {
-            width: 208px;
-            height: 96px;
-            margin-top: 52px;
-            margin-bottom: 48px;
-        }
-
-        .startScreenTitle {
-            font-weight: 400;
-            font-size: 40px;
-            line-height: 48px;
-            color: #004980;
-            text-align: center;
-        }
-
-        .difficultyBox {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            gap: 24px;
-            margin-bottom: 67px;
-        }
-
-        .difficultyItem {
-            background-color: #FFFFFF;
-            height: 98px;
-            width: 98px;
-            border-radius: 12px;
-
-            font-weight: 400;
-            font-size: 64px;
-            line-height: 72px;
-            color: #0080C1;
-
-            display: flex;
-            align-items: center;
-            text-align: center;
-            flex-direction: row;
-            justify-content: center;
-        }       
-
-        .startButton {
-            width: 246px;
-            height: 50px;
-            background: #7AC100;
-            border-radius: 12px;
-
-            font-weight: 400;
-            font-size: 24px;
-            line-height: 32px;
-            color: #FFFFFF;
-            border: none;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="app">
@@ -107,44 +23,122 @@
             </div>
         </div>
     </div>
-    <script>
-        window.application = {
-            screens: {},
-            renderScreen: function(screenName) {
-                if (window.application.screens[screenName]) {
-                    window.application.screens[screenName]()
-                } else {
-                    console.log('НЕ СУЩЕСТВУЕТ ТАКОГО ПОЛЯ В window.application.screens');
-                }  
-            },
-        }
+<script src="./index.js"></script>
+    <template class="easy">
+        <div class="cardBox">
+            <img src="./closed.jpg" class="card closed">
+        </div>
+        <div class="cardBox">
+            <img src="./closed.jpg" class="card closed">
+        </div>
+        <div class="cardBox">
+            <img src="./closed.jpg" class="card closed">
+        </div>
+        <div class="cardBox">
+            <img src="./closed.jpg" class="card closed">
+        </div>
+        <div class="cardBox">
+            <img src="./closed.jpg" class="card closed">
+        </div>
+        <div class="cardBox">
+            <img src="./closed.jpg" class="card closed">
+        </div>
+    </template>
 
-        function renderGameScreen() {
-            const app = document.querySelector('.app');
-            app.textContent = '';
-        }
+    <template class="medium">
+        <div class="cardBox">
+            <img src="./closed.jpg" class="card closed">
+        </div>
+        <div class="cardBox">
+            <img src="./closed.jpg" class="card closed">
+        </div>
+        <div class="cardBox">
+            <img src="./closed.jpg" class="card closed">
+        </div>
+        <div class="cardBox">
+            <img src="./closed.jpg" class="card closed">
+        </div>
+        <div class="cardBox">
+            <img src="./closed.jpg" class="card closed">
+        </div>
+        <div class="cardBox">
+            <img src="./closed.jpg" class="card closed">
+        </div>
+        <div class="cardBox">
+            <img src="./closed.jpg" class="card closed">
+        </div>
+        <div class="cardBox">
+            <img src="./closed.jpg" class="card closed">
+        </div>
+        <div class="cardBox">
+            <img src="./closed.jpg" class="card closed">
+        </div>
+        <div class="cardBox">
+            <img src="./closed.jpg" class="card closed">
+        </div>
+        <div class="cardBox">
+            <img src="./closed.jpg" class="card closed">
+        </div>
+        <div class="cardBox">
+            <img src="./closed.jpg" class="card closed">
+        </div>
+    </template>
 
-        const difficulty1 = document.querySelector('.difficulty1');
-        const difficulty2 = document.querySelector('.difficulty2');
-        const difficulty3 = document.querySelector('.difficulty3');
-
-        difficulty1.addEventListener('click', function(e) {
-            window.application.difficulty = 1;
-            window.application.screens['gameScreen'] = renderGameScreen; 
-            window.application.renderScreen('gameScreen');
-        })
-
-        difficulty2.addEventListener('click', function(e) {
-            window.application.difficulty = 2;
-            window.application.screens['gameScreen'] = renderGameScreen; 
-            window.application.renderScreen('gameScreen');
-        })
-
-        difficulty3.addEventListener('click', function(e) {
-            window.application.difficulty = 3;
-            window.application.screens['gameScreen'] = renderGameScreen; 
-            window.application.renderScreen('gameScreen');
-        })
-    </script>
+    <template class="hard">
+        <div class="cardBox">
+            <img src="./closed.jpg" class="card closed">
+        </div>
+        <div class="cardBox">
+            <img src="./closed.jpg" class="card closed">
+        </div>
+        <div class="cardBox">
+            <img src="./closed.jpg" class="card closed">
+        </div>
+        <div class="cardBox">
+            <img src="./closed.jpg" class="card closed">
+        </div>
+        <div class="cardBox">
+            <img src="./closed.jpg" class="card closed">
+        </div>
+        <div class="cardBox">
+            <img src="./closed.jpg" class="card closed">
+        </div>
+        <div class="cardBox">
+            <img src="./closed.jpg" class="card closed">
+        </div>
+        <div class="cardBox">
+            <img src="./closed.jpg" class="card closed">
+        </div>
+        <div class="cardBox">
+            <img src="./closed.jpg" class="card closed">
+        </div>
+        <div class="cardBox">
+            <img src="./closed.jpg" class="card closed">
+        </div>
+        <div class="cardBox">
+            <img src="./closed.jpg" class="card closed">
+        </div>
+        <div class="cardBox">
+            <img src="./closed.jpg" class="card closed">
+        </div>
+        <div class="cardBox">
+            <img src="./closed.jpg" class="card closed">
+        </div>
+        <div class="cardBox">
+            <img src="./closed.jpg" class="card closed">
+        </div>
+        <div class="cardBox">
+            <img src="./closed.jpg" class="card closed">
+        </div>
+        <div class="cardBox">
+            <img src="./closed.jpg" class="card closed">
+        </div>
+        <div class="cardBox">
+            <img src="./closed.jpg" class="card closed">
+        </div>
+        <div class="cardBox">
+            <img src="./closed.jpg" class="card closed">
+        </div>
+    </template>
 </body>
 </html>
