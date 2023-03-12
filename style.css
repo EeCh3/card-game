@@ -1,33 +1,51 @@
+/* stylelint-disable prettier/prettier */
+/* stylelint-disable font-family-name-quotes */
+/* stylelint-disable selector-class-pattern */
+@font-face {
+    font-family: "StratosSkyeng";
+    font-style: normal;
+    font-weight: 400;
+    src: local("StratosSkyeng"),
+         /* Если не получилось, загрузит woff2 */
+         url("./stratosskyengweb-regular.woff2") format("woff2"),
+         /* Если браузер не поддерживает woff2, загрузит woff */
+         url("./stratosskyengweb-regular.woff") format("woff");
+  }
+  
+  /* Теперь можно использовать шрифт */
+  body {
+    font-family: "StratosSkyeng", sans-serif;
+  }
+
 * {
-margin: 0;
-padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 a {
-text-decoration: none;
+    text-decoration: none;
 }
 
 .app {
     background-color: #004980;
-    height: 100vh; 
+    height: 100vh;
 }
 
 .startScreenContainer {
-    height: 100vh; 
-    display: flex; 
+    height: 100vh;
+    display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
 }
 
 .startScreenBox {
-    background-color: #C2F5FF;
+    background-color: #c2f5ff;
     width: 480px;
     height: 459px;
     border-radius: 12px;
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
     align-items: center;
 }
 
@@ -49,33 +67,25 @@ text-decoration: none;
 .difficultyBox {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
     gap: 24px;
     margin-bottom: 67px;
 }
 
 .difficultyItem {
     border: none;
-    background-color: #FFFFFF;
+    background-color: #fff;
     height: 98px;
     width: 98px;
     border-radius: 12px;
-
     font-weight: 400;
     font-size: 64px;
     line-height: 72px;
-    color: #0080C1;
-
+    color: #0080c1;
     display: flex;
     align-items: center;
     text-align: center;
     flex-direction: row;
     justify-content: center;
-}       
-
-.difficultyItem:focus:not(:active) {
-    border: solid;
-    border-style: inset;
 }
 
 .difficultyItem:hover {
@@ -83,16 +93,20 @@ text-decoration: none;
     border-color: #9fa397;
 }
 
+.difficultyItem:focus:not(:active) {
+    border: solid;
+    border-style: inset;
+}
+
 .startButton {
     width: 246px;
     height: 50px;
-    background: #7AC100;
+    background: #7ac100;
     border-radius: 12px;
-
     font-weight: 400;
     font-size: 24px;
     line-height: 32px;
-    color: #FFFFFF;
+    color: #fff;
     border: none;
 }
 
@@ -116,7 +130,7 @@ text-decoration: none;
     justify-content: space-between;
 }
 
-.timerBox {
+.timerBlock {
     display: flex;
     width: 155px;
     height: 72px;
@@ -126,20 +140,19 @@ text-decoration: none;
     font-weight: 400;
     font-size: 64px;
     line-height: 72px;
-    color: #FFFFFF;
+    color: #fff;
 }
 
 .replayButton {
     border: none;
     width: 246px;
     height: 50px;
-    background: #7AC100;
+    background: #7ac100;
     border-radius: 12px;
-    
     font-weight: 400;
     font-size: 24px;
     line-height: 32px;
-    color: #FFFFFF;
+    color: #fff;
 }
 
 .replayButton:hover {
@@ -148,9 +161,8 @@ text-decoration: none;
 }
 
 .gameScreenCardsContainer {
-    display:flex;
+    display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
     justify-content: center;
     gap: 15px;
 }

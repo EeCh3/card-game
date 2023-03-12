@@ -31,19 +31,23 @@ function renderGameScreen() {
 
 // СОЗДАЮ ТАЙМЕР
 
-const secondsBox = document.createElement('p');
-secondsBox.classList.add('secondsBox', 'timer');
-secondsBox.textContent = ':00';
-const minutesBox = document.createElement('p');
-minutesBox.classList.add('minutesBox', 'timer');
-minutesBox.textContent = '00';
+function renderTimerBlock(container) {
+    const secondsBox = document.createElement('p');
+    secondsBox.classList.add('secondsBox', 'timer');
+    secondsBox.textContent = ':00';
+    const minutesBox = document.createElement('p');
+    minutesBox.classList.add('minutesBox', 'timer');
+    minutesBox.textContent = '00';
+    const timerBlock = document.createElement('div');
+    timerBlock.classList.add('timerBlock');
+    timerBlock.appendChild(minutesBox);
+    timerBlock.appendChild(secondsBox);
+    container.appendChild(timerBlock)
 
-
-function timer() {
     let seconds = 0;
     let minutes = 0;
 
-    let gameTimer = setInterval(function() {
+    const gameTimer = setInterval(function() {
             seconds ++;
         if (seconds < 10) {
             secondsBox.textContent = `:0${seconds}`
@@ -57,7 +61,8 @@ function timer() {
                     minutesBox.textContent = minutes;
                 }} 
     }, 1000);
-}
+} 
+
 
 
 function renderEasyGameBlock(container) {
@@ -69,19 +74,12 @@ function renderEasyGameBlock(container) {
 
 function renderEasyGameScreen() {
     app.textContent = '';
-    timer()
 
     const gameScreenContainer = document.createElement('div');
     gameScreenContainer.classList.add('gameScreenContainer');
 
     const gameScreenTopContent = document.createElement('div');
     gameScreenTopContent.classList.add('gameScreenTopContent');
-
-    const timerBox = document.createElement('div');
-    timerBox.classList.add('timerBox');
-    
-    timerBox.appendChild(minutesBox)
-    timerBox.appendChild(secondsBox)
 
     const replayButton = document.createElement('button');
     replayButton.classList.add('replayButton');
@@ -90,7 +88,9 @@ function renderEasyGameScreen() {
     const gameScreenCardsContainer = document.createElement('div');
     gameScreenCardsContainer.classList.add('gameScreenCardsContainer');
 
-    gameScreenTopContent.appendChild(timerBox);
+    window.application.blocks['timerBlock'] = renderTimerBlock;
+    window.application.renderBlock('timerBlock', gameScreenTopContent)
+
     gameScreenTopContent.appendChild(replayButton);
     gameScreenContainer.appendChild(gameScreenTopContent);
     gameScreenContainer.appendChild(gameScreenCardsContainer);
@@ -109,19 +109,12 @@ function renderMediumGameBlock(container) {
 
 function renderMediumGameScreen() {
     app.textContent = '';
-    timer()
 
     const gameScreenContainer = document.createElement('div');
     gameScreenContainer.classList.add('gameScreenContainer');
 
     const gameScreenTopContent = document.createElement('div');
     gameScreenTopContent.classList.add('gameScreenTopContent');
-
-    const timerBox = document.createElement('div');
-    timerBox.classList.add('timerBox');
-
-    timerBox.appendChild(minutesBox)
-    timerBox.appendChild(secondsBox)
 
     const replayButton = document.createElement('button');
     replayButton.classList.add('replayButton');
@@ -130,7 +123,9 @@ function renderMediumGameScreen() {
     const gameScreenCardsContainer = document.createElement('div');
     gameScreenCardsContainer.classList.add('gameScreenCardsContainer');
 
-    gameScreenTopContent.appendChild(timerBox);
+    window.application.blocks['timerBlock'] = renderTimerBlock;
+    window.application.renderBlock('timerBlock', gameScreenTopContent)
+
     gameScreenTopContent.appendChild(replayButton);
     gameScreenContainer.appendChild(gameScreenTopContent);
     gameScreenContainer.appendChild(gameScreenCardsContainer);
@@ -149,19 +144,12 @@ function renderHardGameBlock(container) {
 
 function renderHardGameScreen() {
     app.textContent = '';
-    timer()
 
     const gameScreenContainer = document.createElement('div');
     gameScreenContainer.classList.add('gameScreenContainer');
 
     const gameScreenTopContent = document.createElement('div');
     gameScreenTopContent.classList.add('gameScreenTopContent');
-
-    const timerBox = document.createElement('div');
-    timerBox.classList.add('timerBox');
-
-    timerBox.appendChild(minutesBox)
-    timerBox.appendChild(secondsBox)
 
     const replayButton = document.createElement('button');
     replayButton.classList.add('replayButton');
@@ -170,7 +158,9 @@ function renderHardGameScreen() {
     const gameScreenCardsContainer = document.createElement('div');
     gameScreenCardsContainer.classList.add('gameScreenCardsContainer');
 
-    gameScreenTopContent.appendChild(timerBox);
+    window.application.blocks['timerBlock'] = renderTimerBlock;
+    window.application.renderBlock('timerBlock', gameScreenTopContent)
+
     gameScreenTopContent.appendChild(replayButton);
     gameScreenContainer.appendChild(gameScreenTopContent);
     gameScreenContainer.appendChild(gameScreenCardsContainer);
