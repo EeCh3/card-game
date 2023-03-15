@@ -24,45 +24,45 @@ window.application = {
 };
 
 const cards = [
-    { id: '6C', src: './cards/6C.jpg' },
-    { id: '7C', src: './cards/7C.jpg' },
-    { id: '8C', src: './cards/8C.jpg' },
-    { id: '9C', src: './cards/9C.jpg' },
-    { id: '10C', src: './cards/10C.jpg' },
-    { id: 'JC', src: './cards/JC.jpg' },
-    { id: 'QC', src: './cards/QC.jpg' },
-    { id: 'KC', src: './cards/KC.jpg' },
-    { id: 'AC', src: './cards/AC.jpg' },
+    { id: '6C', src: './cards/clubs/6_C.jpg' },
+    { id: '7C', src: './cards/clubs/7_C.jpg' },
+    { id: '8C', src: './cards/clubs/8_C.jpg' },
+    { id: '9C', src: './cards/clubs/9_C.jpg' },
+    { id: '10C', src: './cards/clubs/10_C.jpg' },
+    { id: 'JC', src: './cards/clubs/J_C.jpg' },
+    { id: 'QC', src: './cards/clubs/Q_C.jpg' },
+    { id: 'KC', src: './cards/clubs/K_C.jpg' },
+    { id: 'AC', src: './cards/clubs/A_C.jpg' },
 
-    { id: '6D', src: './cards/6D.jpg' },
-    { id: '7D', src: './cards/7D.jpg' },
-    { id: '8D', src: './cards/8D.jpg' },
-    { id: '9D', src: './cards/9D.jpg' },
-    { id: '10D', src: './cards/10D.jpg' },
-    { id: 'JD', src: './cards/JD.jpg' },
-    { id: 'QD', src: './cards/QD.jpg' },
-    { id: 'KD', src: './cards/KD.jpg' },
-    { id: 'AD', src: './cards/AD.jpg' },
+    { id: '6D', src: './cards/diamonds/6_D.jpg' },
+    { id: '7D', src: './cards/diamonds/7_D.jpg' },
+    { id: '8D', src: './cards/diamonds/8_D.jpg' },
+    { id: '9D', src: './cards/diamonds/9_D.jpg' },
+    { id: '10D', src: './cards/diamonds/10_D.jpg' },
+    { id: 'JD', src: './cards/diamonds/J_D.jpg' },
+    { id: 'QD', src: './cards/diamonds/Q_D.jpg' },
+    { id: 'KD', src: './cards/diamonds/K_D.jpg' },
+    { id: 'AD', src: './cards/diamonds/A_D.jpg' },
 
-    { id: '6H', src: './cards/6H.jpg' },
-    { id: '7H', src: './cards/7H.jpg' },
-    { id: '8H', src: './cards/8H.jpg' },
-    { id: '9H', src: './cards/9H.jpg' },
-    { id: '10H', src: './cards/10H.jpg' },
-    { id: 'JH', src: './cards/JH.jpg' },
-    { id: 'QH', src: './cards/QH.jpg' },
-    { id: 'KH', src: './cards/KH.jpg' },
-    { id: 'AH', src: './cards/AH.jpg' },
+    { id: '6H', src: './cards/hearts/6_H.jpg' },
+    { id: '7H', src: './cards/hearts/7_H.jpg' },
+    { id: '8H', src: './cards/hearts/8_H.jpg' },
+    { id: '9H', src: './cards/hearts/9_H.jpg' },
+    { id: '10H', src: './cards/hearts/10_H.jpg' },
+    { id: 'JH', src: './cards/hearts/J_H.jpg' },
+    { id: 'QH', src: './cards/hearts/Q_H.jpg' },
+    { id: 'KH', src: './cards/hearts/K_H.jpg' },
+    { id: 'AH', src: './cards/hearts/A_H.jpg' },
 
-    { id: '6S', src: './cards/6S.jpg' },
-    { id: '7S', src: './cards/7S.jpg' },
-    { id: '8S', src: './cards/8S.jpg' },
-    { id: '9S', src: './cards/9S.jpg' },
-    { id: '10S', src: './cards/10S.jpg' },
-    { id: 'JS', src: './cards/JS.jpg' },
-    { id: 'QS', src: './cards/QS.jpg' },
-    { id: 'KS', src: './cards/KS.jpg' },
-    { id: 'AS', src: './cards/AS.jpg' },
+    { id: '6S', src: './cards/spades/6_S.jpg' },
+    { id: '7S', src: './cards/spades/7_S.jpg' },
+    { id: '8S', src: './cards/spades/8_S.jpg' },
+    { id: '9S', src: './cards/spades/9_S.jpg' },
+    { id: '10S', src: './cards/spades/10_S.jpg' },
+    { id: 'JS', src: './cards/spades/J_S.jpg' },
+    { id: 'QS', src: './cards/spades/Q_S.jpg' },
+    { id: 'KS', src: './cards/spades/K_S.jpg' },
+    { id: 'AS', src: './cards/spades/A_S.jpg' },
 ];
 
 // ПОЛУЧАЮ РАНДОМНУЮ КАРТУ ИЗ МАССИВА КАРТ
@@ -92,10 +92,14 @@ function createCardPairs(container) {
 
     for (let i = 0; i < shuffledCards.length; i++) {
         const cardBox = document.createElement('div');
-        cardBox.classList.add('cardBox');
-        cardBox.style.backgroundImage = `url(${shuffledCards[i].src})`;
-        cardBox.classList.add(shuffledCards[i].id);
+        cardBox.classList.add('cardBox', 'flippedCard');
+        // cardBox.classList.add('cardBox');
+        const card = document.createElement('img');
+        card.classList.add('card');
+        card.setAttribute('src', shuffledCards[i].src);
+        card.classList.add(shuffledCards[i].id);
 
+        cardBox.appendChild(card);
         container.appendChild(cardBox);
     }
 }
@@ -103,6 +107,8 @@ function createCardPairs(container) {
 const gameScreenCardsContainer = document.createElement('div');
 gameScreenCardsContainer.classList.add('gameScreenCardsContainer');
 
+// вывести создание всех элементов игрового экрана в отдельную  функцию
+// (чтобы код не повторялся)
 function renderGameScreen() {}
 
 // СОЗДАЮ СЕКУНДОМЕР
@@ -173,41 +179,38 @@ function renderEasyGameScreen() {
     window.application.blocks['easyGame'] = renderEasyGameBlock;
     window.application.renderBlock('easyGame', gameScreenCardsContainer);
 
-    coverCards();
-    uncoverCard();
-}
-
-function coverCards() {
+    const cards = document.querySelectorAll('.card');
     const cardBoxes = document.querySelectorAll('.cardBox');
-    const flipCardsTimer = setTimeout(() => {
-        cardBoxes.forEach((cardBox) => {
-            cardBox.style.backgroundImage = 'url(./closed.jpg)';
+
+    const flipCardsTimer = setInterval(function () {
+        // const cards = document.querySelectorAll('.card');
+        cards.forEach((card) => {
+            card.classList.add('hidden');
         });
     }, 5000);
 }
 
-function uncoverCard() {
-    const totalAmountOfCards = [];
-    let openedCards = [];
+//              УДАЛЯЕТ КЛАСС "HIDDEN" У ВСЕХ КАРТ, А НЕ У ОДНОЙ
+function compareCards() {
     const cardBoxes = document.querySelectorAll('.cardBox');
-    cardBoxes.forEach((cardBox) => {
-        cardBox.addEventListener('click', function () {
-            let cardName = cardBox.classList;
-            cardBox.style.backgroundImage = `url(./cards/${cardName[1]}.jpg)`;
-            openedCards.push(cardName[1]);
-            totalAmountOfCards.push(cardName[1]);
-
-            if (openedCards.length === 2) {
-                if (openedCards[0] === openedCards[1]) {
-                    openedCards = [];
-                } else {
-                    alert('ВЫ ПРОИГРАЛИ');
-                }
+    for (let i = 0; i < cardBoxes.length; i++) {
+        cardBoxes[i].addEventListener('click', function () {
+            const cards = document.querySelectorAll('.card');
+            for (let i = 0; i < cards.length; i++) {
+                cards[i].classList.remove('hidden');
             }
-            if (totalAmountOfCards.length === cardBoxes.length) {
-                alert('ВЫ ВЫИГРАЛИ');
-            }
-            console.log(openedCards);
+        });
+    }
+}
+//              УДАЛЯЕТ КЛАСС "HIDDEN" У ВСЕХ КАРТ, А НЕ У ОДНОЙ (только используется forEach)
+function compareCards2() {
+    const cardBoxes = document.querySelectorAll('.cardBox');
+    cardBoxes.forEach((box) => {
+        box.addEventListener('click', function () {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card) => {
+                card.classList.remove('hidden');
+            });
         });
     });
 }
@@ -245,9 +248,6 @@ function renderMediumGameScreen() {
 
     window.application.blocks['mediumGame'] = renderMediumGameBlock;
     window.application.renderBlock('mediumGame', gameScreenCardsContainer);
-
-    coverCards();
-    uncoverCard();
 }
 
 function renderHardGameBlock(container) {
@@ -283,9 +283,6 @@ function renderHardGameScreen() {
 
     window.application.blocks['hardGame'] = renderHardGameBlock;
     window.application.renderBlock('hardGame', gameScreenCardsContainer);
-
-    coverCards();
-    uncoverCard();
 }
 
 const difficulty1 = document.querySelector('.difficulty1');

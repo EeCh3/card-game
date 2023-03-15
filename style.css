@@ -1,4 +1,6 @@
 /* stylelint-disable prettier/prettier */
+/* stylelint-disable function-url-quotes */
+/* stylelint-disable declaration-block-no-redundant-longhand-properties */
 /* stylelint-disable font-family-name-quotes */
 /* stylelint-disable selector-class-pattern */
 @font-face {
@@ -121,6 +123,10 @@ a {
 
 .gameScreenContainer {
     padding: 26px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
 }
 
 .gameScreenTopContent {
@@ -128,6 +134,7 @@ a {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    padding-bottom: 15%;
 }
 
 .timerBlock {
@@ -160,9 +167,19 @@ a {
     border-color: #446b00;
 }
 
+/* hard & easy */
 .gameScreenCardsContainer {
+    max-width: 975px;
     display: flex;
-    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.mediumGameScreenCardsContainer {
+    max-width: 645px;
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 15px;
 }
@@ -176,4 +193,15 @@ a {
     width: 100%;
     height: 100%;
     border-radius: 4px;
+}
+
+.flippedCard {
+    background-image: url(./closed.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.hidden {
+    display: none;
 }
