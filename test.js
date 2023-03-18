@@ -24,45 +24,45 @@ window.application = {
 };
 
 const cards = [
-    { id: '6C', src: './cards/clubs/6_C.jpg' },
-    { id: '7C', src: './cards/clubs/7_C.jpg' },
-    { id: '8C', src: './cards/clubs/8_C.jpg' },
-    { id: '9C', src: './cards/clubs/9_C.jpg' },
-    { id: '10C', src: './cards/clubs/10_C.jpg' },
-    { id: 'JC', src: './cards/clubs/J_C.jpg' },
-    { id: 'QC', src: './cards/clubs/Q_C.jpg' },
-    { id: 'KC', src: './cards/clubs/K_C.jpg' },
-    { id: 'AC', src: './cards/clubs/A_C.jpg' },
+    { id: '6C', src: './cards/6C.jpg' },
+    { id: '7C', src: './cards/7C.jpg' },
+    { id: '8C', src: './cards/8C.jpg' },
+    { id: '9C', src: './cards/9C.jpg' },
+    { id: '10C', src: './cards/10C.jpg' },
+    { id: 'JC', src: './cards/JC.jpg' },
+    { id: 'QC', src: './cards/QC.jpg' },
+    { id: 'KC', src: './cards/KC.jpg' },
+    { id: 'AC', src: './cards/AC.jpg' },
 
-    { id: '6D', src: './cards/diamonds/6_D.jpg' },
-    { id: '7D', src: './cards/diamonds/7_D.jpg' },
-    { id: '8D', src: './cards/diamonds/8_D.jpg' },
-    { id: '9D', src: './cards/diamonds/9_D.jpg' },
-    { id: '10D', src: './cards/diamonds/10_D.jpg' },
-    { id: 'JD', src: './cards/diamonds/J_D.jpg' },
-    { id: 'QD', src: './cards/diamonds/Q_D.jpg' },
-    { id: 'KD', src: './cards/diamonds/K_D.jpg' },
-    { id: 'AD', src: './cards/diamonds/A_D.jpg' },
+    { id: '6D', src: './cards/6D.jpg' },
+    { id: '7D', src: './cards/7D.jpg' },
+    { id: '8D', src: './cards/8D.jpg' },
+    { id: '9D', src: './cards/9D.jpg' },
+    { id: '10D', src: './cards/10D.jpg' },
+    { id: 'JD', src: './cards/JD.jpg' },
+    { id: 'QD', src: './cards/QD.jpg' },
+    { id: 'KD', src: './cards/KD.jpg' },
+    { id: 'AD', src: './cards/AD.jpg' },
 
-    { id: '6H', src: './cards/hearts/6_H.jpg' },
-    { id: '7H', src: './cards/hearts/7_H.jpg' },
-    { id: '8H', src: './cards/hearts/8_H.jpg' },
-    { id: '9H', src: './cards/hearts/9_H.jpg' },
-    { id: '10H', src: './cards/hearts/10_H.jpg' },
-    { id: 'JH', src: './cards/hearts/J_H.jpg' },
-    { id: 'QH', src: './cards/hearts/Q_H.jpg' },
-    { id: 'KH', src: './cards/hearts/K_H.jpg' },
-    { id: 'AH', src: './cards/hearts/A_H.jpg' },
+    { id: '6H', src: './cards/6H.jpg' },
+    { id: '7H', src: './cards/7H.jpg' },
+    { id: '8H', src: './cards/8H.jpg' },
+    { id: '9H', src: './cards/9H.jpg' },
+    { id: '10H', src: './cards/10H.jpg' },
+    { id: 'JH', src: './cards/JH.jpg' },
+    { id: 'QH', src: './cards/QH.jpg' },
+    { id: 'KH', src: './cards/KH.jpg' },
+    { id: 'AH', src: './cards/AH.jpg' },
 
-    { id: '6S', src: './cards/spades/6_S.jpg' },
-    { id: '7S', src: './cards/spades/7_S.jpg' },
-    { id: '8S', src: './cards/spades/8_S.jpg' },
-    { id: '9S', src: './cards/spades/9_S.jpg' },
-    { id: '10S', src: './cards/spades/10_S.jpg' },
-    { id: 'JS', src: './cards/spades/J_S.jpg' },
-    { id: 'QS', src: './cards/spades/Q_S.jpg' },
-    { id: 'KS', src: './cards/spades/K_S.jpg' },
-    { id: 'AS', src: './cards/spades/A_S.jpg' },
+    { id: '6S', src: './cards/6S.jpg' },
+    { id: '7S', src: './cards/7S.jpg' },
+    { id: '8S', src: './cards/8S.jpg' },
+    { id: '9S', src: './cards/9S.jpg' },
+    { id: '10S', src: './cards/10S.jpg' },
+    { id: 'JS', src: './cards/JS.jpg' },
+    { id: 'QS', src: './cards/QS.jpg' },
+    { id: 'KS', src: './cards/KS.jpg' },
+    { id: 'AS', src: './cards/AS.jpg' },
 ];
 
 // ПОЛУЧАЮ РАНДОМНУЮ КАРТУ ИЗ МАССИВА КАРТ
@@ -92,14 +92,10 @@ function createCardPairs(container) {
 
     for (let i = 0; i < shuffledCards.length; i++) {
         const cardBox = document.createElement('div');
-        cardBox.classList.add('cardBox', 'flippedCard');
-        // cardBox.classList.add('cardBox');
-        const card = document.createElement('img');
-        card.classList.add('card');
-        card.setAttribute('src', shuffledCards[i].src);
-        card.classList.add(shuffledCards[i].id);
+        cardBox.classList.add('cardBox');
+        cardBox.style.backgroundImage = `url(${shuffledCards[i].src})`;
+        cardBox.classList.add(shuffledCards[i].id);
 
-        cardBox.appendChild(card);
         container.appendChild(cardBox);
     }
 }
@@ -107,8 +103,6 @@ function createCardPairs(container) {
 const gameScreenCardsContainer = document.createElement('div');
 gameScreenCardsContainer.classList.add('gameScreenCardsContainer');
 
-// вывести создание всех элементов игрового экрана в отдельную  функцию
-// (чтобы код не повторялся)
 function renderGameScreen() {}
 
 // СОЗДАЮ СЕКУНДОМЕР
@@ -128,18 +122,26 @@ function renderTimerBlock(container) {
     let seconds = 0;
     let minutes = 0;
 
+    // window.application.seconds = 0;
+    window.application.minutes = minutesBox.textContent;
+
+
     const gameTimer = setInterval(function () {
         seconds++;
         if (seconds < 10) {
             secondsBox.textContent = `:0${seconds}`;
+            window.application.seconds = secondsBox.textContent;
         } else if (seconds >= 10 && seconds < 59) {
             secondsBox.textContent = `:${seconds}`;
+            window.application.seconds = secondsBox.textContent;
         } else if (seconds === 60) {
             minutes++;
             seconds = seconds - 60;
             minutesBox.textContent = `0${minutes}`;
+            window.application.minutes = minutesBox.textContent;
             if (minutes >= 10) {
                 minutesBox.textContent = minutes;
+                window.application.minutes = minutesBox.textContent
             }
         }
     }, 1000);
@@ -162,7 +164,7 @@ function renderEasyGameScreen() {
     gameScreenTopContent.classList.add('gameScreenTopContent');
 
     const replayButton = document.createElement('button');
-    replayButton.classList.add('replayButton');
+    replayButton.classList.add('replayButton', 'button');
     replayButton.textContent = 'Начать заново';
 
     const gameScreenCardsContainer = document.createElement('div');
@@ -179,41 +181,51 @@ function renderEasyGameScreen() {
     window.application.blocks['easyGame'] = renderEasyGameBlock;
     window.application.renderBlock('easyGame', gameScreenCardsContainer);
 
-    const cards = document.querySelectorAll('.card');
-    const cardBoxes = document.querySelectorAll('.cardBox');
+    coverCards();
+    uncoverCard();
+}
 
-    const flipCardsTimer = setInterval(function () {
-        // const cards = document.querySelectorAll('.card');
-        cards.forEach((card) => {
-            card.classList.add('hidden');
+function coverCards() {
+    const cardBoxes = document.querySelectorAll('.cardBox');
+    const flipCardsTimer = setTimeout(() => {
+        cardBoxes.forEach((cardBox) => {
+            cardBox.style.backgroundImage = 'url(./closed.jpg)';
         });
     }, 5000);
 }
 
-//              УДАЛЯЕТ КЛАСС "HIDDEN" У ВСЕХ КАРТ, А НЕ У ОДНОЙ
-function compareCards() {
+function uncoverCard() {
+    const totalAmountOfCards = [];
+    let openedCards = [];
     const cardBoxes = document.querySelectorAll('.cardBox');
-    for (let i = 0; i < cardBoxes.length; i++) {
-        cardBoxes[i].addEventListener('click', function () {
-            const cards = document.querySelectorAll('.card');
-            for (let i = 0; i < cards.length; i++) {
-                cards[i].classList.remove('hidden');
+
+    cardBoxes.forEach((cardBox) => {
+        cardBox.addEventListener('click', function () {
+            let cardName = cardBox.classList;
+            cardBox.style.backgroundImage = `url(./cards/${cardName[1]}.jpg)`;
+            openedCards.push(cardName[1]);
+            totalAmountOfCards.push(cardName[1]);
+
+            if (openedCards.length === 2) {
+                if (openedCards[0] === openedCards[1]) {
+                    openedCards = [];
+                } else {
+                    window.application.gameStatus = 'Вы проиграли!'
+                    window.application.victoryPicture = './lose.png'
+                    renderEndgameWindow()
+                }
             }
-        });
-    }
-}
-//              УДАЛЯЕТ КЛАСС "HIDDEN" У ВСЕХ КАРТ, А НЕ У ОДНОЙ (только используется forEach)
-function compareCards2() {
-    const cardBoxes = document.querySelectorAll('.cardBox');
-    cardBoxes.forEach((box) => {
-        box.addEventListener('click', function () {
-            const cards = document.querySelectorAll('.card');
-            cards.forEach((card) => {
-                card.classList.remove('hidden');
-            });
+            if (totalAmountOfCards.length === cardBoxes.length) {
+                window.application.gameStatus = 'Вы выиграли!'
+                window.application.victoryPicture = './win.png'
+                renderEndgameWindow()
+            }
+            console.log(openedCards);
+            console.log(totalAmountOfCards);
         });
     });
 }
+
 
 function renderMediumGameBlock(container) {
     for (let i = 0; i < 6; i++) {
@@ -232,7 +244,7 @@ function renderMediumGameScreen() {
     gameScreenTopContent.classList.add('gameScreenTopContent');
 
     const replayButton = document.createElement('button');
-    replayButton.classList.add('replayButton');
+    replayButton.classList.add('replayButton', 'button');
     replayButton.textContent = 'Начать заново';
 
     const gameScreenCardsContainer = document.createElement('div');
@@ -248,6 +260,9 @@ function renderMediumGameScreen() {
 
     window.application.blocks['mediumGame'] = renderMediumGameBlock;
     window.application.renderBlock('mediumGame', gameScreenCardsContainer);
+
+    coverCards();
+    uncoverCard();
 }
 
 function renderHardGameBlock(container) {
@@ -267,7 +282,7 @@ function renderHardGameScreen() {
     gameScreenTopContent.classList.add('gameScreenTopContent');
 
     const replayButton = document.createElement('button');
-    replayButton.classList.add('replayButton');
+    replayButton.classList.add('replayButton', 'button');
     replayButton.textContent = 'Начать заново';
 
     const gameScreenCardsContainer = document.createElement('div');
@@ -283,6 +298,9 @@ function renderHardGameScreen() {
 
     window.application.blocks['hardGame'] = renderHardGameBlock;
     window.application.renderBlock('hardGame', gameScreenCardsContainer);
+
+    coverCards();
+    uncoverCard();
 }
 
 const difficulty1 = document.querySelector('.difficulty1');
@@ -314,3 +332,104 @@ startButton.addEventListener('click', function (e) {
         window.application.renderScreen('hardGameScreen');
     }
 });
+
+function renderEndgameWindow() {
+    const modalWindow = document.createElement('div');
+    modalWindow.classList.add('modal');
+
+    const EndgameWindowContainer = document.createElement('div');
+    EndgameWindowContainer.classList.add('EndgameWindowContainer', 'modalContent')
+
+    const EndgamePictureBox = document.createElement('div');
+    EndgamePictureBox.classList.add('EndgamePictureBox')
+    const EndgamePicture = document.createElement('img');
+    EndgamePicture.classList.add('EndgamePicture')
+    EndgamePicture.setAttribute('src', window.application.victoryPicture)
+    EndgamePictureBox.appendChild(EndgamePicture)
+    
+    const EndgameHeadingBox = document.createElement('div');
+    EndgameHeadingBox.classList.add('EndgameHeadingBox')
+    const EndgameHeading = document.createElement('h1');
+    EndgameHeading.classList.add('EndgameHeading')
+
+    EndgameHeading.textContent = window.application.gameStatus;
+    EndgameHeadingBox.appendChild(EndgameHeading)
+
+    const totalTimeBox = document.createElement('div');
+    totalTimeBox.classList.add('totalTimeBox')
+
+    const  totalTimeHeading = document.createElement('h2');
+    totalTimeHeading.classList.add('totalTimeHeading')
+    totalTimeHeading.textContent = 'Затраченное время:'
+
+    const totalTime = document.createElement('h3');
+    totalTime.classList.add('totalTime')
+
+    totalTime.textContent = `${window.application.minutes}` + `${window.application.seconds}`
+
+    totalTimeBox.appendChild(totalTimeHeading)
+    totalTimeBox.appendChild(totalTime)
+
+    const playAgainButton = document.createElement('button');
+    playAgainButton.classList.add('playAgainButton', 'button')
+    playAgainButton.textContent = 'Играть снова'
+
+    EndgameWindowContainer.appendChild(EndgamePictureBox);
+    EndgameWindowContainer.appendChild(EndgameHeadingBox)
+    EndgameWindowContainer.appendChild(totalTimeBox)
+    EndgameWindowContainer.appendChild(playAgainButton)
+    modalWindow.appendChild(EndgameWindowContainer)
+    app.appendChild(modalWindow)
+
+    modalWindow.style.display = "block";
+}
+
+// function renderVictoryWindow() {
+//     const modalWindow = document.createElement('div');
+//     modalWindow.classList.add('modal');
+
+//     const victoryWindowContainer = document.createElement('div');
+//     victoryWindowContainer.classList.add('victoryWindowContainer', 'modalContent')
+
+//     const victoryPictureBox = document.createElement('div');
+//     victoryPictureBox.classList.add('victoryPictureBox')
+//     const victoryPicture = document.createElement('img');
+//     victoryPicture.classList.add('victoryPicture')
+//     victoryPicture.setAttribute('src', './win.png')
+//     victoryPictureBox.appendChild(victoryPicture)
+    
+//     const victoryHeadingBox = document.createElement('div');
+//     victoryHeadingBox.classList.add('victoryHeadingBox')
+//     const victoryHeading = document.createElement('h1');
+//     victoryHeading.classList.add('victoryHeading')
+//     victoryHeading.textContent = 'Вы выиграли!'
+//     victoryHeadingBox.appendChild(victoryHeading)
+
+//     const totalTimeBox = document.createElement('div');
+//     totalTimeBox.classList.add('totalTimeBox')
+
+//     const  totalTimeHeading = document.createElement('h2');
+//     totalTimeHeading.classList.add('totalTimeHeading')
+//     totalTimeHeading.textContent = 'Затраченное время:'
+
+//     const totalTime = document.createElement('h3');
+//     totalTime.classList.add('totalTime')
+
+//     totalTime.textContent = `${window.application.minutes}` + `${window.application.seconds}`
+
+//     totalTimeBox.appendChild(totalTimeHeading)
+//     totalTimeBox.appendChild(totalTime)
+
+//     const playAgainButton = document.createElement('button');
+//     playAgainButton.classList.add('playAgainButton', 'button')
+//     playAgainButton.textContent = 'Играть снова'
+
+//     victoryWindowContainer.appendChild(victoryPictureBox);
+//     victoryWindowContainer.appendChild(victoryHeadingBox)
+//     victoryWindowContainer.appendChild(totalTimeBox)
+//     victoryWindowContainer.appendChild(playAgainButton)
+//     modalWindow.appendChild(victoryWindowContainer)
+//     app.appendChild(modalWindow)
+
+//     modalWindow.style.display = "block";
+// }
