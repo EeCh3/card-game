@@ -202,16 +202,19 @@ function renderTimerBlock(container) {
 }
 
 function renderGameBlock(container) {
+    const EasyGameCardPairs = 3;
+    const MediumGameCardsPairs = 6;
+    const HardGameCardsPairs = 9;
     if (window.application.difficulty === 1) {
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < EasyGameCardPairs; i++) {
             getRandomCard();
         }
     } else if (window.application.difficulty === 2) {
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < MediumGameCardsPairs; i++) {
             getRandomCard();
         }
     } else if (window.application.difficulty === 3) {
-        for (let i = 0; i < 9; i++) {
+        for (let i = 0; i < HardGameCardsPairs; i++) {
             getRandomCard();
         }
     }
@@ -277,13 +280,13 @@ function uncoverCard() {
                     openedCards = [];
                 } else {
                     window.application.gameStatus = 'Вы проиграли!';
-                    window.application.victoryPicture = './pictures/lose.png';
+                    window.application.modalWindowPicture = './pictures/lose.png';
                     renderEndgameWindow();
                 }
             }
             if (totalAmountOfCards.length === cardBoxes.length) {
                 window.application.gameStatus = 'Вы выиграли!';
-                window.application.victoryPicture = './pictures/win.png';
+                window.application.modalWindowPicture = './pictures/win.png';
                 renderEndgameWindow();
             }
         });
@@ -305,7 +308,7 @@ function renderEndgameWindow() {
     EndgamePictureBox.classList.add('EndgamePictureBox');
     const EndgamePicture = document.createElement('img');
     EndgamePicture.classList.add('EndgamePicture');
-    EndgamePicture.setAttribute('src', window.application.victoryPicture);
+    EndgamePicture.setAttribute('src', window.application.modalWindowPicture);
     EndgamePictureBox.appendChild(EndgamePicture);
 
     const EndgameHeadingBox = document.createElement('div');
