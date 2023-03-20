@@ -3,6 +3,7 @@ const app = document.querySelector('.app');
 window.application = {
     blocks: {},
     screens: {},
+    randomCards: [],
     renderScreen: function (screenName) {
         if (window.application.screens[screenName]) {
             window.application.screens[screenName]();
@@ -85,53 +86,52 @@ function renderStartScreen() {
 }
 
 const cards = [
-    { id: '6C', src: './pictures/cards/6C.jpg' },
-    { id: '7C', src: './pictures/cards/7C.jpg' },
-    { id: '8C', src: './pictures/cards/8C.jpg' },
-    { id: '9C', src: './pictures/cards/9C.jpg' },
-    { id: '10C', src: './pictures/cards/10C.jpg' },
-    { id: 'JC', src: './pictures/cards/JC.jpg' },
-    { id: 'QC', src: './pictures/cards/QC.jpg' },
-    { id: 'KC', src: './pictures/cards/KC.jpg' },
-    { id: 'AC', src: './pictures/cards/AC.jpg' },
+    { id: '6C', src: './src/pictures/cards/6C.jpg' },
+    { id: '7C', src: './src/pictures/cards/7C.jpg' },
+    { id: '8C', src: './src/pictures/cards/8C.jpg' },
+    { id: '9C', src: './src/pictures/cards/9C.jpg' },
+    { id: '10C', src: './src/pictures/cards/10C.jpg' },
+    { id: 'JC', src: './src/pictures/cards/JC.jpg' },
+    { id: 'QC', src: './src/pictures/cards/QC.jpg' },
+    { id: 'KC', src: './src/pictures/cards/KC.jpg' },
+    { id: 'AC', src: './src/pictures/cards/AC.jpg' },
 
-    { id: '6D', src: './pictures/cards/6D.jpg' },
-    { id: '7D', src: './pictures/cards/7D.jpg' },
-    { id: '8D', src: './pictures/cards/8D.jpg' },
-    { id: '9D', src: './pictures/cards/9D.jpg' },
-    { id: '10D', src: './pictures/cards/10D.jpg' },
-    { id: 'JD', src: './pictures/cards/JD.jpg' },
-    { id: 'QD', src: './pictures/cards/QD.jpg' },
-    { id: 'KD', src: './pictures/cards/KD.jpg' },
-    { id: 'AD', src: './pictures/cards/AD.jpg' },
+    { id: '6D', src: './src/pictures/cards/6D.jpg' },
+    { id: '7D', src: './src/pictures/cards/7D.jpg' },
+    { id: '8D', src: './src/pictures/cards/8D.jpg' },
+    { id: '9D', src: './src/pictures/cards/9D.jpg' },
+    { id: '10D', src: './src/pictures/cards/10D.jpg' },
+    { id: 'JD', src: './src/pictures/cards/JD.jpg' },
+    { id: 'QD', src: './src/pictures/cards/QD.jpg' },
+    { id: 'KD', src: './src/pictures/cards/KD.jpg' },
+    { id: 'AD', src: './src/pictures/cards/AD.jpg' },
 
-    { id: '6H', src: './pictures/cards/6H.jpg' },
-    { id: '7H', src: './pictures/cards/7H.jpg' },
-    { id: '8H', src: './pictures/cards/8H.jpg' },
-    { id: '9H', src: './pictures/cards/9H.jpg' },
-    { id: '10H', src: './pictures/cards/10H.jpg' },
-    { id: 'JH', src: './pictures/cards/JH.jpg' },
-    { id: 'QH', src: './pictures/cards/QH.jpg' },
-    { id: 'KH', src: './pictures/cards/KH.jpg' },
-    { id: 'AH', src: './pictures/cards/AH.jpg' },
+    { id: '6H', src: './src/pictures/cards/6H.jpg' },
+    { id: '7H', src: './src/pictures/cards/7H.jpg' },
+    { id: '8H', src: './src/pictures/cards/8H.jpg' },
+    { id: '9H', src: './src/pictures/cards/9H.jpg' },
+    { id: '10H', src: './src/pictures/cards/10H.jpg' },
+    { id: 'JH', src: './src/pictures/cards/JH.jpg' },
+    { id: 'QH', src: './src/pictures/cards/QH.jpg' },
+    { id: 'KH', src: './src/pictures/cards/KH.jpg' },
+    { id: 'AH', src: './src/pictures/cards/AH.jpg' },
 
-    { id: '6S', src: './pictures/cards/6S.jpg' },
-    { id: '7S', src: './pictures/cards/7S.jpg' },
-    { id: '8S', src: './pictures/cards/8S.jpg' },
-    { id: '9S', src: './pictures/cards/9S.jpg' },
-    { id: '10S', src: './pictures/cards/10S.jpg' },
-    { id: 'JS', src: './pictures/cards/JS.jpg' },
-    { id: 'QS', src: './pictures/cards/QS.jpg' },
-    { id: 'KS', src: './pictures/cards/KS.jpg' },
-    { id: 'AS', src: './pictures/cards/AS.jpg' },
+    { id: '6S', src: './src/pictures/cards/6S.jpg' },
+    { id: '7S', src: './src/pictures/cards/7S.jpg' },
+    { id: '8S', src: './src/pictures/cards/8S.jpg' },
+    { id: '9S', src: './src/pictures/cards/9S.jpg' },
+    { id: '10S', src: './src/pictures/cards/10S.jpg' },
+    { id: 'JS', src: './src/pictures/cards/JS.jpg' },
+    { id: 'QS', src: './src/pictures/cards/QS.jpg' },
+    { id: 'KS', src: './src/pictures/cards/KS.jpg' },
+    { id: 'AS', src: './src/pictures/cards/AS.jpg' },
 ];
 
 // ПОЛУЧАЮ РАНДОМНУЮ КАРТУ ИЗ МАССИВА КАРТ
-const randomCards = [];
 function getRandomCard() {
     const randomCard = cards[Math.floor(Math.random() * cards.length)];
-    if (!randomCards.includes(randomCard)) {
-        randomCards.push(randomCard);
+    if (!window.application.randomCards.includes(randomCard)) {
+        window.application.randomCards.push(randomCard);
     } else {
         getRandomCard();
     }
@@ -148,7 +148,9 @@ function shuffleArray(array) {
 
 // СОЗДАЮ ПАРЫ КАРТ И ПЕРЕМЕШИВАЮ ИХ
 function createCardPairs(container) {
-    const cardPairs = randomCards.concat(randomCards);
+    const cardPairs = window.application.randomCards.concat(
+        window.application.randomCards
+    );
     const shuffledCards = shuffleArray(cardPairs);
 
     for (let i = 0; i < shuffledCards.length; i++) {
@@ -159,6 +161,7 @@ function createCardPairs(container) {
 
         container.appendChild(cardBox);
     }
+    window.application.randomCards = [];
 }
 
 // СОЗДАЮ СЕКУНДОМЕР
@@ -178,29 +181,24 @@ function renderTimerBlock(container) {
     let seconds = 0;
     let minutes = 0;
 
-    window.application.minutes = minutesBox.textContent;
-
     const gameTimer = setInterval(function () {
         seconds++;
         if (seconds < 10) {
             secondsBox.textContent = `:0${seconds}`;
-            window.application.seconds = secondsBox.textContent;
-        } else if (seconds >= 10 && seconds < 59) {
+        } else if (seconds >= 10 && seconds <= 59) {
             secondsBox.textContent = `:${seconds}`;
-            window.application.seconds = secondsBox.textContent;
         } else if (seconds === 60) {
             minutes++;
             seconds = seconds - 60;
             minutesBox.textContent = `0${minutes}`;
-            window.application.minutes = minutesBox.textContent;
             if (minutes >= 10) {
                 minutesBox.textContent = minutes;
-                window.application.minutes = minutesBox.textContent;
             }
         }
     }, 1000);
 }
 
+// РЕНДЕРЮ БЛОК КАРТ ДЛЯ ИГРОВОГО ЭКРАНА
 function renderGameBlock(container) {
     const EasyGameCardPairs = 3;
     const MediumGameCardsPairs = 6;
@@ -221,6 +219,7 @@ function renderGameBlock(container) {
     createCardPairs(container);
 }
 
+// СОЗДАЮ ИГРОВОЙ ЭКРАН
 function renderGameScreen() {
     app.textContent = '';
 
@@ -249,7 +248,7 @@ function renderGameScreen() {
     window.application.renderBlock('gameBlock', gameScreenCardsContainer);
 
     coverCards();
-    uncoverCard();
+    const startGameTimer = setTimeout(uncoverCard, 5000);
 }
 
 // ПЕРЕВОРАЧИВАЮ КАРТЫ ЧЕРЕЗ 5 СЕКУНД
@@ -257,7 +256,7 @@ function coverCards() {
     const cardBoxes = document.querySelectorAll('.cardBox');
     const flipCardsTimer = setTimeout(() => {
         cardBoxes.forEach((cardBox) => {
-            cardBox.style.backgroundImage = 'url(./pictures/closed.jpg)';
+            cardBox.style.backgroundImage = 'url(./src/pictures/closed.jpg)';
         });
     }, 5000);
 }
@@ -271,7 +270,7 @@ function uncoverCard() {
     cardBoxes.forEach((cardBox) => {
         cardBox.addEventListener('click', function () {
             let cardName = cardBox.classList;
-            cardBox.style.backgroundImage = `url(./pictures/cards/${cardName[1]}.jpg)`;
+            cardBox.style.backgroundImage = `url(./src/pictures/cards/${cardName[1]}.jpg)`;
             openedCards.push(cardName[1]);
             totalAmountOfCards.push(cardName[1]);
 
@@ -280,13 +279,15 @@ function uncoverCard() {
                     openedCards = [];
                 } else {
                     window.application.gameStatus = 'Вы проиграли!';
-                    window.application.modalWindowPicture = './pictures/lose.png';
+                    window.application.modalWindowPicture =
+                        './src/pictures/lose.png';
                     renderEndgameWindow();
                 }
             }
             if (totalAmountOfCards.length === cardBoxes.length) {
                 window.application.gameStatus = 'Вы выиграли!';
-                window.application.modalWindowPicture = './pictures/win.png';
+                window.application.modalWindowPicture =
+                    './src/pictures/win.png';
                 renderEndgameWindow();
             }
         });
@@ -330,7 +331,8 @@ function renderEndgameWindow() {
     totalTime.classList.add('totalTime');
 
     totalTime.textContent =
-        `${window.application.minutes}` + `${window.application.seconds}`;
+        document.querySelector('.minutesBox').textContent +
+        document.querySelector('.secondsBox').textContent;
 
     totalTimeBox.appendChild(totalTimeHeading);
     totalTimeBox.appendChild(totalTime);
