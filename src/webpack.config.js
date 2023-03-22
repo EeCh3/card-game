@@ -1,5 +1,5 @@
 const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
@@ -38,5 +38,8 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
   },
-  plugins: [new MiniCssExtractPlugin(), new HtmlWebpackPlugin()],
+  plugins: [new MiniCssExtractPlugin(), new HtmlWebpackPlugin({
+    filename: 'card-game.html',
+    template: './card-game.html',
+  })],
 };
