@@ -1,4 +1,5 @@
 const path = require("path");
+const CopyPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
@@ -41,5 +42,9 @@ module.exports = {
   plugins: [new MiniCssExtractPlugin(), new HtmlWebpackPlugin({
     filename: 'card-game.html',
     template: './card-game.html',
-  })],
+  }),
+  new CopyPlugin({
+    patterns: [{ from: 'scr/pictures', to: 'static' }],
+  })
+]
 };

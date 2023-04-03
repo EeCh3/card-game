@@ -1,3 +1,5 @@
+import './fonts and style/style.css';
+
 const app = document.querySelector('.app');
 
 window.application = {
@@ -57,15 +59,15 @@ function renderStartScreen() {
     difficultyButton3.classList.add('difficultyItem', 'difficulty3');
     difficultyButton3.textContent = '3';
 
-    difficultyButton1.addEventListener('click', function (e) {
+    difficultyButton1.addEventListener('click', function () {
         window.application.difficulty = 1;
     });
 
-    difficultyButton2.addEventListener('click', function (e) {
+    difficultyButton2.addEventListener('click', function () {
         window.application.difficulty = 2;
     });
 
-    difficultyButton3.addEventListener('click', function (e) {
+    difficultyButton3.addEventListener('click', function () {
         window.application.difficulty = 3;
     });
 
@@ -181,7 +183,7 @@ function renderTimerBlock(container) {
     let seconds = 0;
     let minutes = 0;
 
-    const gameTimer = setInterval(function () {
+    setInterval(function () {
         seconds++;
         if (seconds < 10) {
             secondsBox.textContent = `:0${seconds}`;
@@ -248,13 +250,13 @@ function renderGameScreen() {
     window.application.renderBlock('gameBlock', gameScreenCardsContainer);
 
     coverCards();
-    const startGameTimer = setTimeout(uncoverCard, 5000);
+    setTimeout(uncoverCard, 5000);
 }
 
 // ПЕРЕВОРАЧИВАЮ КАРТЫ ЧЕРЕЗ 5 СЕКУНД
 function coverCards() {
     const cardBoxes = document.querySelectorAll('.cardBox');
-    const flipCardsTimer = setTimeout(() => {
+    setTimeout(() => {
         cardBoxes.forEach((cardBox) => {
             cardBox.style.backgroundImage = 'url(./src/pictures/closed.jpg)';
         });
