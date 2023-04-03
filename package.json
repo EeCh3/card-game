@@ -31,5 +31,5 @@
     "start": "webpack-dev-server --open",
     "prepare": "husky install",
     "lint:ts": "tsc --noEmit"
-  },
+  }
 }
