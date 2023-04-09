@@ -1,25 +1,43 @@
+import './fonts and style/style.css';
 const app = document.querySelector('.app');
-
-interface Window {
-    application: {
-        blocks: {
-            [key: string]: (container: HTMLElement) => void;
+declare global {
+    interface Window {
+        application: {
+            blocks: {
+                [key: string]: (container: HTMLElement) => void;
+            };
+            screens: {
+                [key: string]: () => void;
+            };
+            renderScreen: (screenName: string) => void;
+            renderBlock: (blockName: string, container: HTMLElement) => void;
+            randomCards: [
+                {
+                    id: string;
+                    src: string;
+                }
+            ];
+            difficulty: number;
+            gameStatus: string;
+            modalWindowPicture: string;
         };
-        screens: {
-            [key: string]: () => void;
-        };
-        renderScreen: (screenName: string) => void;
-        renderBlock: (blockName: string, container: HTMLElement) => void;
-        randomCards: {
-            [x: string]: any;
-            id: string;
-            src: string;
-        };
-        difficulty: number;
-        gameStatus: string;
-        modalWindowPicture: string;
-    };
+    }
 }
+window.application = {
+    blocks: {},
+    screens: {},
+    renderScreen: () => {},
+    renderBlock: () => {},
+    randomCards: [
+        {
+            id: '',
+            src: '',
+        },
+    ],
+    difficulty: 0,
+    gameStatus: '',
+    modalWindowPicture: '',
+};
 
 renderStartScreen();
 
@@ -131,13 +149,16 @@ function getRandomCard(): void {
     const randomCard = cards[Math.floor(Math.random() * cards.length)];
     if (!window.application.randomCards.includes(randomCard)) {
         window.application.randomCards.push(randomCard);
+        console.log(window.application.randomCards);
     } else {
         getRandomCard();
+        console.log(window.application.randomCards);
     }
+    console.log(window.application.randomCards);
 }
 
 // ПЕРЕМЕШАТЬ ЭЛЕМЕНТЫ МАССИВА
-function shuffleArray(array: any[]) {
+export function shuffleArray(array: any[]) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
@@ -160,7 +181,7 @@ function createCardPairs(container: HTMLElement) {
 
         container.appendChild(cardBox);
     }
-    window.application.randomCards.length = 0;
+    window.application.randomCards = [{ id: '', src: '' }];
 }
 
 // СОЗДАЮ СЕКУНДОМЕР

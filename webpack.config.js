@@ -42,8 +42,8 @@ module.exports = {
     plugins: [
         new MiniCssExtractPlugin(),
         new HtmlWebpackPlugin({
-            filename: 'card-game.html',
-            template: './card-game.html',
+            filename: 'index.html',
+            template: './index.html',
         }),
         new CopyPlugin({
             patterns: [{ from: 'src/pictures', to: 'static' }],

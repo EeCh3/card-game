@@ -162,7 +162,7 @@ a {
 }
 
 .flippedCard {
-    background-image: url(./closed.jpg);
+    background-image: url(/src/pictures/closed.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
