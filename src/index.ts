@@ -26,8 +26,12 @@ declare global {
 window.application = {
     blocks: {},
     screens: {},
-    renderScreen: () => {},
-    renderBlock: () => {},
+    renderScreen: function (screenName: string) {
+        this.screens[screenName]();
+    },
+    renderBlock: function (blockName: string, container: HTMLElement) {
+        this.blocks[blockName](container);
+    },
     randomCards: [
         {
             id: '',
@@ -176,8 +180,12 @@ function createCardPairs(container: HTMLElement) {
     for (let i = 0; i < shuffledCards.length; i++) {
         const cardBox = document.createElement('div');
         cardBox.classList.add('cardBox');
-        cardBox.style.backgroundImage = `url(${shuffledCards[i].src})`;
-        cardBox.classList.add(shuffledCards[i].id);
+        cardBox.setAttribute('class', `cardBox ${shuffledCards[i].id}`);
+        cardBox.setAttribute('style', `background-image: url(${shuffledCards[i].src});`);
+
+        if (shuffledCards[i].id.trim() !== '') {
+            cardBox.classList.add(shuffledCards[i].id);
+        }
 
         container.appendChild(cardBox);
     }
