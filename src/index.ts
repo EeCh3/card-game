@@ -1,4 +1,46 @@
 import './fonts and style/style.css';
+import C6 from './pictures/cards/6C.jpg';
+import C7 from './pictures/cards/7C.jpg';
+import C8 from './pictures/cards/8C.jpg';
+import C9 from './pictures/cards/9C.jpg';
+import C10 from './pictures/cards/10C.jpg';
+import CJ from './pictures/cards/JC.jpg';
+import CQ from './pictures/cards/QC.jpg';
+import CK from './pictures/cards/KC.jpg';
+import CA from './pictures/cards/AC.jpg';
+
+import D6 from './pictures/cards/6D.jpg';
+import D7 from './pictures/cards/7D.jpg';
+import D8 from './pictures/cards/8D.jpg';
+import D9 from './pictures/cards/9D.jpg';
+import D10 from './pictures/cards/10D.jpg';
+import DJ from './pictures/cards/JD.jpg';
+import DQ from './pictures/cards/QD.jpg';
+import DK from './pictures/cards/KD.jpg';
+import DA from './pictures/cards/AD.jpg';
+
+import H6 from './pictures/cards/6H.jpg';
+import H7 from './pictures/cards/7H.jpg';
+import H8 from './pictures/cards/8H.jpg';
+import H9 from './pictures/cards/9H.jpg';
+import H10 from './pictures/cards/10H.jpg';
+import HJ from './pictures/cards/JH.jpg';
+import HQ from './pictures/cards/QH.jpg';
+import HK from './pictures/cards/KH.jpg';
+import HA from './pictures/cards/AH.jpg';
+
+import S6 from './pictures/cards/6S.jpg';
+import S7 from './pictures/cards/7S.jpg';
+import S8 from './pictures/cards/8S.jpg';
+import S9 from './pictures/cards/9S.jpg';
+import S10 from './pictures/cards/10S.jpg';
+import SJ from './pictures/cards/JS.jpg';
+import SQ from './pictures/cards/QS.jpg';
+import SK from './pictures/cards/KS.jpg';
+import SA from './pictures/cards/AS.jpg';
+
+import flipped from './pictures/closed.jpg'
+
 const app = document.querySelector('.app');
 declare global {
     interface Window {
@@ -106,60 +148,66 @@ function renderStartScreen() {
 }
 
 const cards = [
-    { id: '6C', src: './src/pictures/cards/6C.jpg' },
-    { id: '7C', src: './src/pictures/cards/7C.jpg' },
-    { id: '8C', src: './src/pictures/cards/8C.jpg' },
-    { id: '9C', src: './src/pictures/cards/9C.jpg' },
-    { id: '10C', src: './src/pictures/cards/10C.jpg' },
-    { id: 'JC', src: './src/pictures/cards/JC.jpg' },
-    { id: 'QC', src: './src/pictures/cards/QC.jpg' },
-    { id: 'KC', src: './src/pictures/cards/KC.jpg' },
-    { id: 'AC', src: './src/pictures/cards/AC.jpg' },
+    { id: '6C', src: C6 },
+    { id: '7C', src: C7 },
+    { id: '8C', src: C8 },
+    { id: '9C', src: C9 },
+    { id: '10C', src: C10 },
+    { id: 'JC', src: CJ },
+    { id: 'QC', src: CQ },
+    { id: 'KC', src: CK },
+    { id: 'AC', src: CA },
 
-    { id: '6D', src: './src/pictures/cards/6D.jpg' },
-    { id: '7D', src: './src/pictures/cards/7D.jpg' },
-    { id: '8D', src: './src/pictures/cards/8D.jpg' },
-    { id: '9D', src: './src/pictures/cards/9D.jpg' },
-    { id: '10D', src: './src/pictures/cards/10D.jpg' },
-    { id: 'JD', src: './src/pictures/cards/JD.jpg' },
-    { id: 'QD', src: './src/pictures/cards/QD.jpg' },
-    { id: 'KD', src: './src/pictures/cards/KD.jpg' },
-    { id: 'AD', src: './src/pictures/cards/AD.jpg' },
+    { id: '6D', src: D6 },
+    { id: '7D', src: D7 },
+    { id: '8D', src: D8 },
+    { id: '9D', src: D9 },
+    { id: '10D', src: D10 },
+    { id: 'JD', src: DJ },
+    { id: 'QD', src: DQ },
+    { id: 'KD', src: DK },
+    { id: 'AD', src: DA },
 
-    { id: '6H', src: './src/pictures/cards/6H.jpg' },
-    { id: '7H', src: './src/pictures/cards/7H.jpg' },
-    { id: '8H', src: './src/pictures/cards/8H.jpg' },
-    { id: '9H', src: './src/pictures/cards/9H.jpg' },
-    { id: '10H', src: './src/pictures/cards/10H.jpg' },
-    { id: 'JH', src: './src/pictures/cards/JH.jpg' },
-    { id: 'QH', src: './src/pictures/cards/QH.jpg' },
-    { id: 'KH', src: './src/pictures/cards/KH.jpg' },
-    { id: 'AH', src: './src/pictures/cards/AH.jpg' },
+    { id: '6H', src: H6 },
+    { id: '7H', src: H7 },
+    { id: '8H', src: H8 },
+    { id: '9H', src: H9 },
+    { id: '10H', src: H10 },
+    { id: 'JH', src: HJ },
+    { id: 'QH', src: HQ },
+    { id: 'KH', src: HK },
+    { id: 'AH', src: HA },
 
-    { id: '6S', src: './src/pictures/cards/6S.jpg' },
-    { id: '7S', src: './src/pictures/cards/7S.jpg' },
-    { id: '8S', src: './src/pictures/cards/8S.jpg' },
-    { id: '9S', src: './src/pictures/cards/9S.jpg' },
-    { id: '10S', src: './src/pictures/cards/10S.jpg' },
-    { id: 'JS', src: './src/pictures/cards/JS.jpg' },
-    { id: 'QS', src: './src/pictures/cards/QS.jpg' },
-    { id: 'KS', src: './src/pictures/cards/KS.jpg' },
-    { id: 'AS', src: './src/pictures/cards/AS.jpg' },
+    { id: '6S', src: S6 },
+    { id: '7S', src: S7 },
+    { id: '8S', src: S8 },
+    { id: '9S', src: S9},
+    { id: '10S', src: S10 },
+    { id: 'JS', src: SJ },
+    { id: 'QS', src: SQ },
+    { id: 'KS', src: SK },
+    { id: 'AS', src: SA },
 ];
+
 
 // ПОЛУЧАЮ РАНДОМНУЮ КАРТУ ИЗ МАССИВА КАРТ
 // здесь была ошибка с "includes", quick fix добавил строчки 14,15 и 16
 function getRandomCard(): void {
     const randomCard = cards[Math.floor(Math.random() * cards.length)];
+    console.log('111');
+    console.log(randomCard);
     if (!window.application.randomCards.includes(randomCard)) {
         window.application.randomCards.push(randomCard);
+        console.log('222');
+        console.log(randomCard);
+        console.log('333');
         console.log(window.application.randomCards);
     } else {
         getRandomCard();
-        console.log(window.application.randomCards);
     }
-    console.log(window.application.randomCards);
 }
+
+
 
 // ПЕРЕМЕШАТЬ ЭЛЕМЕНТЫ МАССИВА
 export function shuffleArray(array: any[]) {
@@ -181,7 +229,10 @@ function createCardPairs(container: HTMLElement) {
         const cardBox = document.createElement('div');
         cardBox.classList.add('cardBox');
         cardBox.setAttribute('class', `cardBox ${shuffledCards[i].id}`);
-        cardBox.setAttribute('style', `background-image: url(${shuffledCards[i].src});`);
+        cardBox.setAttribute(
+            'style',
+            `background-image: url(${shuffledCards[i].src});`
+        );
 
         if (shuffledCards[i].id.trim() !== '') {
             cardBox.classList.add(shuffledCards[i].id);
@@ -285,7 +336,7 @@ function coverCards() {
     const cardBoxes = document.querySelectorAll<HTMLElement>('.cardBox');
     setTimeout(() => {
         cardBoxes.forEach((cardBox) => {
-            cardBox.style.backgroundImage = 'url(./src/pictures/closed.jpg)';
+            cardBox.style.backgroundImage = flipped;
         });
     }, 5000);
 }
