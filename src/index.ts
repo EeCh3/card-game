@@ -39,9 +39,12 @@ import SQ from './pictures/cards/QS.jpg';
 import SK from './pictures/cards/KS.jpg';
 import SA from './pictures/cards/AS.jpg';
 
-import flipped from './pictures/closed.jpg'
+import flipped from './pictures/closed.jpg';
+import winPic from './pictures/win.png';
+import losePic from './pictures/lose.png';
 
 const app = document.querySelector('.app');
+
 declare global {
     interface Window {
         application: {
@@ -53,15 +56,13 @@ declare global {
             };
             renderScreen: (screenName: string) => void;
             renderBlock: (blockName: string, container: HTMLElement) => void;
-            randomCards: [
-                {
-                    id: string;
-                    src: string;
-                }
-            ];
+            randomCards: Array<{ id: string; src: string }>;
             difficulty: number;
             gameStatus: string;
             modalWindowPicture: string;
+            timers: NodeJS.Timer[];
+            seconds: string;
+            minutes: string;
         };
     }
 }
@@ -74,21 +75,27 @@ window.application = {
     renderBlock: function (blockName: string, container: HTMLElement) {
         this.blocks[blockName](container);
     },
-    randomCards: [
-        {
-            id: '',
-            src: '',
-        },
-    ],
+    randomCards: [],
     difficulty: 0,
     gameStatus: '',
     modalWindowPicture: '',
+    timers: [],
+    seconds: '',
+    minutes: '00',
 };
 
 renderStartScreen();
 
 // СОЗДАЮ НАЧАЛЬНЫЙ ЭКРАН
 function renderStartScreen() {
+    window.application.timers.forEach((timer) => {
+        clearInterval(timer);
+    });
+    window.application.timers = [];
+
+    window.application.minutes = '00';
+    window.application.seconds = '';
+
     const app = document.querySelector('.app') as Element;
     app.textContent = '';
 
@@ -181,7 +188,7 @@ const cards = [
     { id: '6S', src: S6 },
     { id: '7S', src: S7 },
     { id: '8S', src: S8 },
-    { id: '9S', src: S9},
+    { id: '9S', src: S9 },
     { id: '10S', src: S10 },
     { id: 'JS', src: SJ },
     { id: 'QS', src: SQ },
@@ -189,25 +196,15 @@ const cards = [
     { id: 'AS', src: SA },
 ];
 
-
 // ПОЛУЧАЮ РАНДОМНУЮ КАРТУ ИЗ МАССИВА КАРТ
-// здесь была ошибка с "includes", quick fix добавил строчки 14,15 и 16
 function getRandomCard(): void {
     const randomCard = cards[Math.floor(Math.random() * cards.length)];
-    console.log('111');
-    console.log(randomCard);
     if (!window.application.randomCards.includes(randomCard)) {
         window.application.randomCards.push(randomCard);
-        console.log('222');
-        console.log(randomCard);
-        console.log('333');
-        console.log(window.application.randomCards);
     } else {
         getRandomCard();
     }
 }
-
-
 
 // ПЕРЕМЕШАТЬ ЭЛЕМЕНТЫ МАССИВА
 export function shuffleArray(array: any[]) {
@@ -228,53 +225,62 @@ function createCardPairs(container: HTMLElement) {
     for (let i = 0; i < shuffledCards.length; i++) {
         const cardBox = document.createElement('div');
         cardBox.classList.add('cardBox');
-        cardBox.setAttribute('class', `cardBox ${shuffledCards[i].id}`);
+        cardBox.setAttribute('class', `cardBox ${shuffledCards[i].src}`);
         cardBox.setAttribute(
             'style',
             `background-image: url(${shuffledCards[i].src});`
         );
 
         if (shuffledCards[i].id.trim() !== '') {
-            cardBox.classList.add(shuffledCards[i].id);
+            cardBox.classList.add(shuffledCards[i].src);
         }
 
         container.appendChild(cardBox);
     }
-    window.application.randomCards = [{ id: '', src: '' }];
+    window.application.randomCards = [];
 }
 
-// СОЗДАЮ СЕКУНДОМЕР
+// СОЗДАЮ ТАЙМЕР
 function renderTimerBlock(container: HTMLElement) {
+    let seconds = 0;
+    let minutes = 0;
     const secondsBox = document.createElement('p');
     secondsBox.classList.add('secondsBox', 'timer');
-    secondsBox.textContent = ':00';
+    secondsBox.textContent = `:0${seconds}`;
     const minutesBox = document.createElement('p');
     minutesBox.classList.add('minutesBox', 'timer');
-    minutesBox.textContent = '00';
+    minutesBox.textContent = `0${minutes}`;
     const timerBlock = document.createElement('div');
     timerBlock.classList.add('timerBlock');
     timerBlock.appendChild(minutesBox);
     timerBlock.appendChild(secondsBox);
     container.appendChild(timerBlock);
 
-    let seconds = 0;
-    let minutes = 0;
-
-    setInterval(function () {
+    const startTimer = setInterval(function () {
         seconds++;
+        window.application.seconds = seconds.toString();
         if (seconds < 10) {
-            secondsBox.textContent = `:0${seconds}`;
+            secondsBox.textContent = `:0${window.application.seconds}`;
+            window.application.seconds = secondsBox.textContent;
         } else if (seconds >= 10 && seconds <= 59) {
-            secondsBox.textContent = `:${seconds}`;
+            secondsBox.textContent = `:${window.application.seconds}`;
+            window.application.seconds = secondsBox.textContent;
         } else if (seconds === 60) {
+            secondsBox.textContent = ':00';
+            window.application.seconds = secondsBox.textContent;
             minutes++;
-            seconds = seconds - 60;
-            minutesBox.textContent = `0${minutes}`;
+            window.application.minutes = minutes.toString();
+            minutesBox.textContent = `0${window.application.minutes}`;
+            window.application.minutes = minutesBox.textContent;
+            seconds = 0;
             if (minutes >= 10) {
-                minutesBox.textContent = minutes.toString();
+                minutesBox.textContent = `${minutes}`;
+                window.application.minutes = minutesBox.textContent;
             }
         }
     }, 1000);
+
+    window.application.timers.push(startTimer);
 }
 
 // РЕНДЕРЮ БЛОК КАРТ ДЛЯ ИГРОВОГО ЭКРАНА
@@ -312,6 +318,7 @@ function renderGameScreen() {
     const replayButton = document.createElement('button');
     replayButton.classList.add('replayButton', 'button');
     replayButton.textContent = 'Начать заново';
+    replayButton.addEventListener('click', renderStartScreen);
 
     const gameScreenCardsContainer = document.createElement('div');
     gameScreenCardsContainer.classList.add('gameScreenCardsContainer');
@@ -336,7 +343,7 @@ function coverCards() {
     const cardBoxes = document.querySelectorAll<HTMLElement>('.cardBox');
     setTimeout(() => {
         cardBoxes.forEach((cardBox) => {
-            cardBox.style.backgroundImage = flipped;
+            cardBox.setAttribute('style', `background-image: url(${flipped})`);
         });
     }, 5000);
 }
@@ -350,7 +357,11 @@ function uncoverCard() {
     cardBoxes.forEach((cardBox) => {
         cardBox.addEventListener('click', function () {
             let cardName = cardBox.classList;
-            cardBox.style.backgroundImage = `url(./src/pictures/cards/${cardName[1]}.jpg)`;
+            cardBox.setAttribute(
+                'style',
+                `background-image: url(${cardName[1]})`
+            );
+
             openedCards.push(cardName[1]);
             totalAmountOfCards.push(cardName[1]);
 
@@ -359,15 +370,13 @@ function uncoverCard() {
                     openedCards = [];
                 } else {
                     window.application.gameStatus = 'Вы проиграли!';
-                    window.application.modalWindowPicture =
-                        './src/pictures/lose.png';
+                    window.application.modalWindowPicture = losePic;
                     renderEndgameWindow();
                 }
             }
             if (totalAmountOfCards.length === cardBoxes.length) {
                 window.application.gameStatus = 'Вы выиграли!';
-                window.application.modalWindowPicture =
-                    './src/pictures/win.png';
+                window.application.modalWindowPicture = winPic;
                 renderEndgameWindow();
             }
         });
@@ -413,11 +422,8 @@ function renderEndgameWindow() {
     const totalTime = document.createElement('h3');
     totalTime.classList.add('totalTime');
 
-    const minutesText =
-        document.querySelector('.minutesBox')?.textContent ?? '00';
-    const secondsText =
-        document.querySelector('.secondsBox')?.textContent ?? '00';
-    totalTime.textContent = minutesText + secondsText;
+    totalTime.textContent =
+        `${window.application.minutes}` + `${window.application.seconds}`;
 
     totalTimeBox.appendChild(totalTimeHeading);
     totalTimeBox.appendChild(totalTime);
