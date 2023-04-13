@@ -1,8 +1,8 @@
 import { describe, expect, test } from '@jest/globals';
-import { getRandomCard } from '../web/index';
+import { getRandomCard } from './helpers';
 
 describe('getRandomCard', () => {
-    it('returns a card from the cards array that is not already included in randomCards', () => {
+    test('returns a card from the cards array that is not already included in randomCards', () => {
         const cards = [
             { id: '6C', src: './src/pictures/cards/6C.jpg' },
             { id: '7C', src: './src/pictures/cards/7C.jpg' },

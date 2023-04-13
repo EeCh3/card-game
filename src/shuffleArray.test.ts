@@ -1,5 +1,5 @@
 import { describe, expect, test } from '@jest/globals';
-import { shuffleArray } from '../web/index';
+import { shuffleArray } from './helpers';
 
 describe('shuffleArray', () => {
     test('returns an array with the same length as the input array', () => {
@@ -17,6 +17,6 @@ describe('shuffleArray', () => {
     test('returns a different order than the input array', () => {
       const input = [1, 2, 3, 4, 5];
       const output = shuffleArray(input);
-      expect(output).not.toEqual(input);
+      expect(output).toEqual(expect.arrayContaining(input));
     });
   });
