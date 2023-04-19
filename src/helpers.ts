@@ -40,7 +40,7 @@ const cards = [
     { id: 'AS', src: './src/pictures/cards/AS.jpg' },
 ];
 
-function getRandomCard(): void {
+export function getRandomCard(): void {
     const randomCard = cards[Math.floor(Math.random() * cards.length)];
     if (!window.application.randomCards.includes(randomCard)) {
         window.application.randomCards.push(randomCard);
